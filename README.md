@@ -1,24 +1,14 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Task and board management app using ruby and rails.  
 
-Things you may want to cover:
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Ruby_logo.svg/400px-Ruby_logo.svg.png" width="250px" alt="ruby icon" />
 
-* Ruby version
+## Main features
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Multiple suscriptions and account types
+* Task and board management
+* Freemium access by 15 days
+* Managers can control account settings for its users
+* Suscription payment
+* Sign in by email or SMS
