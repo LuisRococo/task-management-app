@@ -16,5 +16,9 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3"
+  },
+  "scripts": {
+    "rubocop/find": "rubocop --require rubocop-rails",
+    "rubocop/fix": "rubocop --require rubocop-rails -A"
   }
 }
