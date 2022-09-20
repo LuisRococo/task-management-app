@@ -9,6 +9,7 @@ gem 'rails', '~> 6.1.7'
 gem 'sqlite3', '~> 1.4'
 gem 'devise'
 gem 'pg'
+gem 'authorized_persona'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
