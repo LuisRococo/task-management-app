@@ -6,11 +6,11 @@ class User < ApplicationRecord
 
   include AuthorizedPersona::Persona
 
-  authorization_tiers(
-    user: "User - limited access",
-    manager: "Manager - manages users and boards",
-    admin: "Admin - total access"
-  )
+  # authorization_tiers(
+  #   user: "User - limited access",
+  #   manager: "Manager - manages users and boards",
+  #   admin: "Admin - total access"
+  # )
 
-  validates :authorization_tier, inclusion: { in: authorization_tier_names }
+  # validates :authorization_tier, inclusion: { in: authorization_tier_names }
 end
