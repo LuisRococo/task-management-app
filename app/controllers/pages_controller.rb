@@ -5,5 +5,6 @@ class PagesController < ApplicationController
   end
 
   def plans
+    @plans = Plan.all
   end
 end
