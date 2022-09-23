@@ -14,7 +14,7 @@ class PlansController < ApplicationController
       flash[:notice] = 'The plan was successfully updated'
       redirect_to plans_path
     else
-      flash[:error] = 'There was an error'
+      flash.now[:error] = 'There was an error'
       render 'update'
     end
   end
