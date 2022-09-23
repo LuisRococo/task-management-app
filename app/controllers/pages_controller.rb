@@ -3,8 +3,4 @@ class PagesController < ApplicationController
 
   def home
   end
-
-  def plans
-    @plans = Plan.all
-  end
 end
