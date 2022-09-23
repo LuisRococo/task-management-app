@@ -1,0 +1,8 @@
+<% flash.each do |type, msj| %>
+  <div class="alert alert-<%= type == "notice" ? "success" : "danger" %> m-0 fade show" role="alert">
+    <div class="d-flex justify-content-center">
+      <span class="me-4"><%= msj %></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+<% end %>
