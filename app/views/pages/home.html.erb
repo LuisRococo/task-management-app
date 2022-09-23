@@ -21,10 +21,9 @@
     <hr class="my-5">
 
     <div class="row">
-      <%= render partial: "feature_card", locals: { title: 'Feature', description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti', img: 'idea-black.jpg' } %>
-      <%= render partial: "feature_card", locals: { title: 'Feature', description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti', img: 'idea-black.jpg' } %>
-      <%= render partial: "feature_card", locals: { title: 'Feature', description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti', img: 'idea-black.jpg' } %>
-      <%= render partial: "feature_card", locals: { title: 'Feature', description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti', img: 'idea-black.jpg' } %>
+      <% app_features.each do |feature| %>
+        <%= render "feature_card", feature %>
+      <% end %>
     </div>
   </div>
 

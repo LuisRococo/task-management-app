@@ -3,12 +3,12 @@
     Plan and prices
   </div>
   <div class="card-body">
-    <h5 class="card-title mb-3"><%= title %> plan</h5>
-    <p class="m-0 mb-1"><strong>Price: </strong><%= price %> $</p>
-    <p class="m-0 mb-1"><strong>User quantity: </strong><%= users %> users</p>
-    <p class="m-0 mb-1"><strong>Renew time: </strong><%= time %> months</p>
+    <h5 class="card-title mb-3"><%= plan.title %> plan</h5>
+    <p class="m-0 mb-1"><strong>Price: </strong><%= plan.price %> $</p>
+    <p class="m-0 mb-1"><strong>User quantity: </strong><%= plan.member_quantity %> users</p>
+    <p class="m-0 mb-1"><strong>Renew time: </strong><%= plan.time_months %> months</p>
     <div class="d-flex justify-content-end">
-        <%= link_to 'Edit', edit_plan_path(id), class: 'btn btn-warning block option-btn' %>
+        <%= link_to 'Edit', edit_plan_path(plan), class: 'btn btn-warning block option-btn' %>
     </div>
   </div>
 </div>
