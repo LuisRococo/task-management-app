@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'pages#home'
-  resources :plans, only: [:index]
+  get 'our-plans', to: 'pages#plans'
+  resources :plans, only: [:index, :edit, :update]
 end

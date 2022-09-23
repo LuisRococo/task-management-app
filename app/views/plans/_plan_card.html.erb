@@ -1,8 +1,14 @@
-<div class="card text-center">
-  <h5 class="card-header py-3"><%= title %> </h5>
-  <div class="card-body pb-4">
-    <h3 class="card-title my-4 h1"><%= price %> $</h3>
-    <p class="card-text"><%= pluralize(month_quantity, 'month') %></p>
-    <a href="#" class="btn btn-success btn-lg">Get the plan</a>
+<div class="card mb-4">
+  <div class="card-header">
+    Plan and prices
+  </div>
+  <div class="card-body">
+    <h5 class="card-title mb-3"><%= title %> plan</h5>
+    <p class="m-0 mb-1"><strong>Price: </strong><%= price %> $</p>
+    <p class="m-0 mb-1"><strong>User quantity: </strong><%= users %> users</p>
+    <p class="m-0 mb-1"><strong>Renew time: </strong><%= time %> months</p>
+    <div class="d-flex justify-content-end">
+        <%= link_to 'Edit', edit_plan_path(id), class: 'btn btn-warning block option-btn' %>
+    </div>
   </div>
 </div>
