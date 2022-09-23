@@ -1,9 +1,14 @@
-<div class="container">
+<div class="container mb-5">
     <%= render 'pg_header', { title: 'Prices and Plans', text: 'Edit plan data like price and users allowed.', config: true } %>
 
     <div class="row d-flex justify-content-center">
-        <div class="col-12 col-lg-8">
-            <%= render 'plan_card' %>
-        </div>
+        <% @plans.each do |plan| %>
+            <div class="col-12 col-lg-8">
+                <%= render 'plan_card', { title: plan.title,
+                                        price: plan.price.to_s,
+                                        users: plan.member_quantity,
+                                        time: plan.time_months } %>
+            </div>
+        <% end %>
     </div>
 </div>
