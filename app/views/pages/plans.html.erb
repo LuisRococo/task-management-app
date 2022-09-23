@@ -11,7 +11,7 @@
     <div class="row d-flex justify-content-center">
         <% @plans.each do |plan| %>
             <div class="col-xm-12 col-md-4">
-                <%= render 'plans/plan_card',
+                <%= render 'pages/plan_card',
                             { title: plan.title,
                             price: plan.price.to_s,
                             month_quantity: plan.time_months } %>
