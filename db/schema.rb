@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2022_09_25_033715) do
     t.index ["author_id"], name: "index_boards_on_author_id"
   end
 
-  create_table "plans", primary_key: "plan_id", id: :bigint, default: -> { "nextval('plans_plans_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "plans", primary_key: "plan_id", force: :cascade do |t|
     t.string "title"
     t.integer "member_quantity"
     t.integer "price_cents", default: 0, null: false
