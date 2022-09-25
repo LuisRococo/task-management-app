@@ -25,4 +25,11 @@ if Rails.env == 'development'
   Board.create(title: 'My greate project I', author_id: admin_user.id)
   Board.create(title: 'My greate project II', author_id: admin_user.id)
   Board.create(title: 'My greate project III', author_id: admin_user.id)
+
+  Board.all.each do |board|
+   board.task_lists << TaskList.new(name: 'Pending', color: '#FAEA07', priority: 1)
+   board.task_lists << TaskList.new(name: 'In Progress', color: '#FF9933', priority: 2)
+   board.task_lists << TaskList.new(name: 'Testing', color: '#000000', priority: 3)
+   board.task_lists << TaskList.new(name: 'Finished', color: '#58D22B', priority: 3)
+  end
 end
