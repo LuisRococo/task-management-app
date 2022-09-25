@@ -1,0 +1,24 @@
+<div class="container mb-5">
+    <%= render 'pg_header', { title: "'Board title' Board",
+                            text: 'Manage today´s tasks',
+                            config: false } %>
+
+    <div class="bg-dark rounded p-4 mt-4 mb-5 text-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <p class="h5 m-0">Boards Owner</p>
+            <div>
+                <button class="btn btn-warning me-2">New List</button>
+                <button class="btn btn-success">New Task</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="overflow-auto">
+        <div class="row-fluid row-fluid-scroll">
+            <%= render 'task_list' %>
+            <%= render 'task_list' %>
+            <%= render 'task_list' %>
+            <%= render 'task_list' %>
+        </div>
+    </div>
+</div>
