@@ -15,4 +15,8 @@ class User < ApplicationRecord
   # )
 
   # validates :authorization_tier, inclusion: { in: authorization_tier_names }
+
+  def full_name
+    first_name + ' ' + last_name
+  end
 end

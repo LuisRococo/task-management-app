@@ -3,20 +3,19 @@
 
     <div class="bg-dark rounded p-4 my-4 text-white">
         <div class="d-flex justify-content-between align-items-center">
-            <p class="h5 m-0">Boards Owner</p>
+            <div>
+                <p class="h5 m-0">Boards Owner</p>
+                <p class="m-0"><%= current_user.full_name %></p>
+            </div>
             <button class="btn btn-success">Add new</button>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12 col-md-6">
-            <%= render 'board_card' %>
-        </div>
-        <div class="col-12 col-md-6">
-            <%= render 'board_card' %>
-        </div>
-        <div class="col-12 col-md-6">
-            <%= render 'board_card' %>
-        </div>
+        <% @boards.each do |board| %>
+            <div class="col-12 col-md-6">
+                <%= render 'board_card', board: board %>
+            </div>
+        <% end %>
     </div>
 </div>
