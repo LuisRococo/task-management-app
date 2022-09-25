@@ -28,9 +28,26 @@ class BoardsController < ApplicationController
     @board = Board.new
   end
 
+  def create
+    @board = Board.new(board_params)
+    @board.author = current_user
+
+    if @board.save
+      flash[:notice] = 'A new board was created'
+      redirect_to boards_path
+    else
+      flash.now[:alert] = 'There was an error creating the board'
+      render 'new'
+    end
+  end
+
   private
 
   def set_article
     @board = Board.find(params[:id])
+  end
+
+  def board_params
+    params.require(:board).permit(:title)
   end
 end
