@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
-  before_action :set_article, only: [:destroy]
+  before_action :set_board, only: [:destroy, :show]
   before_action :require_same_user, only: [:destroy]
 
   def index
@@ -17,7 +17,9 @@ class BoardsController < ApplicationController
     redirect_to boards_path, status: :see_other
   end
 
-  def show; end
+  def show
+    @task_lists = @board.task_lists
+  end
 
   def new
     @board = Board.new
@@ -38,7 +40,7 @@ class BoardsController < ApplicationController
 
   private
 
-  def set_article
+  def set_board
     @board = Board.find(params[:id])
   end
 

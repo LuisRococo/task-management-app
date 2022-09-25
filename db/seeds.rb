@@ -30,6 +30,6 @@ if Rails.env == 'development'
    board.task_lists << TaskList.new(name: 'Pending', color: '#FAEA07', priority: 1)
    board.task_lists << TaskList.new(name: 'In Progress', color: '#FF9933', priority: 2)
    board.task_lists << TaskList.new(name: 'Testing', color: '#000000', priority: 3)
-   board.task_lists << TaskList.new(name: 'Finished', color: '#58D22B', priority: 3)
+   board.task_lists << TaskList.new(name: 'Finished', color: '#58D22B', priority: 4)
   end
 end

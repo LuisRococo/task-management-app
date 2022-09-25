@@ -15,10 +15,9 @@
 
     <div class="overflow-auto">
         <div class="row-fluid row-fluid-scroll">
-            <%= render 'task_list' %>
-            <%= render 'task_list' %>
-            <%= render 'task_list' %>
-            <%= render 'task_list' %>
+            <% @task_lists.each do |list| %>
+                <%= render 'task_list', list: list %>
+            <% end %>
         </div>
     </div>
 </div>
