@@ -6,7 +6,10 @@
     <h5 class="card-title"><%= board.title %> </h5>
     <p class="card-text">10 tasks</p>
     <div class="d-flex justify-content-end">
-        <a href="#" class="btn btn-danger me-2">Delete</a>
+        <%= link_to 'Delete', board_path(board),
+                    method: :delete, 
+                    class: 'btn btn-danger me-2', 
+                    data: {confirm: "Do you really want to delete"} %>
         <%= link_to 'Enter', board_path(board), class: 'btn btn-primary' %>
     </div>
   </div>
