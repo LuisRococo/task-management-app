@@ -18,3 +18,8 @@ Plan.create(title: 'Premium',
             time_months: 12,
             member_quantity: 100,
             price: Money.from_cents(10000))
+
+admin_user = User.create(first_name: 'root', last_name: 'root', email: 'root@root.com', password: 'rootro')
+
+if Rails.env == 'development'
+end
