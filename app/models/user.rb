@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   include AuthorizedPersona::Persona
 
+  has_many :boards
+
   # authorization_tiers(
   #   user: "User - limited access",
   #   manager: "Manager - manages users and boards",
