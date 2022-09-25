@@ -29,7 +29,7 @@ class BoardsController < ApplicationController
 
     if @board.save
       flash[:notice] = 'A new board was created'
-      redirect_to boards_path
+      redirect_to board_path(@board)
     else
       flash.now[:alert] = 'There was an error creating the board'
       render 'new'
