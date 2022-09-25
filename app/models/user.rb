@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   include AuthorizedPersona::Persona
 
+  has_many :boards, foreign_key: :author
+
   # authorization_tiers(
   #   user: "User - limited access",
   #   manager: "Manager - manages users and boards",
@@ -13,4 +15,8 @@ class User < ApplicationRecord
   # )
 
   # validates :authorization_tier, inclusion: { in: authorization_tier_names }
+
+  def full_name
+    first_name + ' ' + last_name
+  end
 end

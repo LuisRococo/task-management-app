@@ -22,4 +22,7 @@ Plan.create(title: 'Premium',
 admin_user = User.create(first_name: 'root', last_name: 'root', email: 'root@root.com', password: 'rootro')
 
 if Rails.env == 'development'
+  Board.create(title: 'My greate project I', author_id: admin_user.id)
+  Board.create(title: 'My greate project II', author_id: admin_user.id)
+  Board.create(title: 'My greate project III', author_id: admin_user.id)
 end
