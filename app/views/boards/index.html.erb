@@ -7,7 +7,7 @@
                 <p class="h5 m-0">Boards Owner</p>
                 <p class="m-0"><%= current_user.full_name %></p>
             </div>
-            <button class="btn btn-success">Add new</button>
+            <%= link_to 'Create board', new_board_path, class: 'btn btn-success' %>
         </div>
     </div>
 

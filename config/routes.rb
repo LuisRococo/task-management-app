@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   resources :plans, only: [:index, :edit, :update]
-  resources :boards, only: [:index, :show, :destroy]
+  resources :boards, only: [:index, :show, :destroy, :new]
 end
