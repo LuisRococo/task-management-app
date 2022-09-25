@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   include AuthorizedPersona::Persona
 
-  has_many :boards
+  has_many :boards, foreign_key: :author
 
   # authorization_tiers(
   #   user: "User - limited access",
