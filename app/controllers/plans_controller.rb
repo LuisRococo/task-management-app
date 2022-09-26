@@ -1,8 +1,11 @@
 class PlansController < ApplicationController
-  before_action :set_plan, only: [:edit, :update, :destroy]
+  before_action :set_plan, only: [:edit, :update, :destroy, :show]
 
   def index
     @plans = Plan.all
+  end
+
+  def show
   end
 
   def edit
