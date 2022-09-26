@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-between align-items-center">
             <p class="h5 m-0">Boards Owner</p>
             <div>
-                <button class="btn btn-warning me-2">New List</button>
+                <%= link_to 'New List', new_task_list_path(board_id: @board.id), class: 'btn btn-warning me-2' %>
                 <button class="btn btn-success">New Task</button>
             </div>
         </div>
