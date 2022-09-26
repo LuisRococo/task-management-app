@@ -2,6 +2,7 @@ class TaskListsController < ApplicationController
   before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index]
   before_action :validate_board_param, only: [:create]
+  before_action :set_task_list, only: [:destroy]
 
   def index
     @task_lists = @board.task_lists.all
@@ -20,6 +21,15 @@ class TaskListsController < ApplicationController
       flash.now[:alert] = 'There was an error'
       render 'new'
     end
+  end
+
+  def destroy
+    if @task_list.destroy
+      flash[:notice] = 'Task list was destroyed successfuly'
+    else
+      flash[:alert] = 'There was an error on deleting the task list'
+    end
+    redirect_to task_lists_path(board_id: @task_list.board.id)
   end
 
   private 
@@ -48,5 +58,9 @@ class TaskListsController < ApplicationController
 
   def set_board_from_url_param
     @board = Board.find(params[:board_id])
+  end
+
+  def set_task_list
+    @task_list = TaskList.find(params[:id])
   end
 end
