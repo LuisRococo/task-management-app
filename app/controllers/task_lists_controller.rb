@@ -1,7 +1,11 @@
 class TaskListsController < ApplicationController
-  before_action :validate_board_url_param_id, only: [:new]
-  before_action :set_board_from_url_param, only: [:new]
+  before_action :validate_board_url_param_id, only: [:new, :index]
+  before_action :set_board_from_url_param, only: [:new, :index]
   before_action :validate_board_param, only: [:create]
+
+  def index
+    @task_lists = @board.task_lists.all
+  end
 
   def new
     @task_list = TaskList.new
@@ -22,14 +26,14 @@ class TaskListsController < ApplicationController
 
   def validate_board_url_param_id
     unless valid_board?(params[:board_id])
-      flash[:alert] = 'The board you are trying to modify is not valid'
+      flash[:alert] = 'The board you are trying to access is not valid'
       redirect_to boards_path
     end
   end
 
   def validate_board_param
     unless valid_board?(params[:task_list][:board_id])
-      flash[:alert] = 'The board you are trying to modify is not valid'
+      flash[:alert] = 'The board you are trying to access is not valid'
       redirect_to boards_path
     end
   end
