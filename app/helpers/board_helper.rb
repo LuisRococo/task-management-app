@@ -10,4 +10,8 @@ module BoardHelper
       text: 'Create a new board',
       config: true }
   end
+
+  def board_group_creator_full_name(boards)
+    boards.first.author.full_name
+  end
 end

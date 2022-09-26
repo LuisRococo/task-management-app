@@ -1,11 +1,14 @@
+<% presenter = BoardPresenter.new(@board) %>
+
 <div class="container mb-5">
-    <%= render 'pg_header', { title: "'Board title' Board",
-                            text: 'Manage today´s tasks',
-                            config: false } %>
+    <%= render 'pg_header', presenter.show_header %>
 
     <div class="bg-dark rounded p-4 mt-4 mb-5 text-white">
         <div class="d-flex justify-content-between align-items-center">
-            <p class="h5 m-0">Boards Owner</p>
+            <div>
+                <p class="h5 m-0">Boards Owner</p>
+                <p class="m-0"><%= presenter.author_full_name %></p>
+            </div>
             <div>
                 <%= link_to 'New List', new_task_list_path(board_id: @board.id), class: 'btn btn-warning me-2' %>
                 <button class="btn btn-success">New Task</button>
