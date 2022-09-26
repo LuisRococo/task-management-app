@@ -3,6 +3,6 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   resources :plans, only: [:index, :edit, :update]
-  resources :boards, only: [:index, :show, :destroy, :new, :create]
+  resources :boards, only: [:index, :show, :destroy, :new, :create, :edit, :update]
   resources :task_lists, only: [:new, :create]
 end
