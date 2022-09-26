@@ -2,7 +2,7 @@ class TaskListsController < ApplicationController
   before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index]
   before_action :validate_board_param, only: [:create]
-  before_action :set_task_list, only: [:show, :destroy]
+  before_action :set_task_list, only: [:show, :destroy, :edit]
 
   def index
     @task_lists = @board.task_lists.all
@@ -33,6 +33,9 @@ class TaskListsController < ApplicationController
       flash[:alert] = 'There was an error on deleting the task list'
     end
     redirect_to task_lists_path(board_id: @task_list.board.id)
+  end
+
+  def edit
   end
 
   private 
