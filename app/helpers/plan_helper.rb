@@ -5,6 +5,12 @@ module PlanHelper
       config: true }
   end
 
+  def plan_new_header
+    { title: 'Create plan',
+      text: 'Create a new plan for your users.',
+      config: true }
+  end
+
   def user_plans_header
     { title: 'Prices and plans',
       text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus quos quisquam molestiae quo commodi beatae cum debitis natus nihil repudiandae.' }
