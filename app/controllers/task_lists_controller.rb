@@ -2,10 +2,13 @@ class TaskListsController < ApplicationController
   before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index]
   before_action :validate_board_param, only: [:create]
-  before_action :set_task_list, only: [:destroy]
+  before_action :set_task_list, only: [:show, :destroy]
 
   def index
     @task_lists = @board.task_lists.all
+  end
+
+  def show
   end
 
   def new
