@@ -11,6 +11,12 @@ module BoardHelper
       config: true }
   end
 
+  def board_edit_header
+    { title: 'Update Board',
+      text: 'Edit your board information',
+      config: true }
+  end
+
   def board_group_creator_full_name(boards)
     boards.first.author.full_name
   end

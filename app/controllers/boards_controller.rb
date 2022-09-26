@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
-  before_action :set_board, only: [:destroy, :show]
+  before_action :set_board, only: [:destroy, :show, :edit, :update]
   before_action :require_same_user, only: [:destroy]
 
   def index
@@ -35,6 +35,19 @@ class BoardsController < ApplicationController
     else
       flash.now[:alert] = 'There was an error creating the board'
       render 'new'
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @board.update(board_params)
+      flash[:notice] = 'The board was successfully updated'
+      redirect_to board_path(@board)
+    else
+      flash.now[:alert] = 'There was an error'
+      render 'edit'
     end
   end
 
