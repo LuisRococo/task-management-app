@@ -1,6 +1,6 @@
 class PlansController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :edit, :update]
-  before_action :set_plan, only: [:edit, :update]
+  before_action :set_plan, only: [:edit, :update, :destroy]
 
   def index
     @plans = Plan.all
@@ -31,6 +31,16 @@ class PlansController < ApplicationController
     else
       flash.now[:error] = 'There was an error'
       render 'update'
+    end
+  end
+
+  def destroy
+    if @plan.destroy
+      flash[:notice] = 'The plan was successfully deleted'
+      redirect_to plans_path
+    else
+      flash[:alert] = 'There was an error'
+      redirect_to plans_path
     end
   end
 
