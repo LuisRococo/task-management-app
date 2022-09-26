@@ -7,15 +7,13 @@
                 <p class="h5 m-0">User</p>
                 <p class="m-0"><%= current_user.full_name %></p>
             </div>
-            <%= link_to 'Create Plan', new_plan_path, class: 'btn btn-success' %>
+            <%= link_to 'Return to plans', plans_path, class: 'btn btn-primary' %>
         </div>
     </div>
 
     <div class="row d-flex justify-content-center">
-        <% @plans.each do |plan| %>
-            <div class="col-12 col-lg-8">
-                <%= render 'plan_card', plan: plan %>
-            </div>
-        <% end %>
+        <div class="col-12 col-lg-8">
+            <%= render 'plan_card', plan: @plan %>
+        </div>
     </div>
 </div>
