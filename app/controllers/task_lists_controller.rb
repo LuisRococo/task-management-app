@@ -19,7 +19,7 @@ class TaskListsController < ApplicationController
     @task_list = TaskList.new(task_list_params)
     if @task_list.save
       flash[:notice] = 'Task list created'
-      redirect_to board_path(params[:task_list][:board_id])
+      redirect_to board_path(@task_list.board.id)
     else 
       flash.now[:alert] = 'There was an error'
       render 'new'
