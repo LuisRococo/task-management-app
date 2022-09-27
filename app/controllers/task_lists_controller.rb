@@ -2,7 +2,7 @@ class TaskListsController < ApplicationController
   before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index]
   before_action :validate_board_param, only: [:create]
-  before_action :set_task_list, only: [:show, :destroy, :edit]
+  before_action :set_task_list, only: [:show, :destroy, :edit, :update]
 
   def index
     @task_lists = @board.task_lists.all
@@ -36,6 +36,16 @@ class TaskListsController < ApplicationController
   end
 
   def edit
+  end
+
+  def update
+    if @task_list.update(task_list_params)
+      flash[:notice] = 'Task list was updated successfully'
+      redirect_to task_list_path(board_id: @task_list.board.id)
+    else
+      flash.now[:alert] = 'There was an error'
+      render 'edit'
+    end
   end
 
   private 
