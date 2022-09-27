@@ -1,6 +1,6 @@
 class BoardsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show]
-  before_action :set_board, only: [:destroy, :show, :edit, :update]
+  before_action :set_board, except: [:index, :new, :create]
   before_action :require_same_user, only: [:destroy]
 
   def index

@@ -2,10 +2,10 @@ class TaskListsController < ApplicationController
   before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index]
   before_action :validate_board_param, only: [:create]
-  before_action :set_task_list, only: [:show, :destroy, :edit, :update]
+  before_action :set_task_list, except: [:index, :new, :create]
 
   def index
-    @task_lists = @board.task_lists.all
+    @task_lists = @board.task_lists
   end
 
   def show
@@ -65,7 +65,7 @@ class TaskListsController < ApplicationController
   end
 
   def valid_board?(id)
-    current_user.boards.where(id: id).exists?
+    !current_user.boards.find_by_id(id).nil?
   end
 
   def task_list_params
