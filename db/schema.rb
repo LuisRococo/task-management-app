@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_20_191024) do
+ActiveRecord::Schema.define(version: 2022_09_25_201436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "boards", force: :cascade do |t|
+    t.string "title"
+    t.bigint "author_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["author_id"], name: "index_boards_on_author_id"
+  end
+
+  create_table "plans", primary_key: "plan_id", force: :cascade do |t|
+    t.string "title"
+    t.integer "member_quantity"
+    t.integer "price_cents", default: 0, null: false
+    t.string "price_currency", default: "USD", null: false
+    t.integer "time_months"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_lists", force: :cascade do |t|
+    t.string "name"
+    t.string "color"
+    t.integer "priority"
+    t.bigint "board_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_id"], name: "index_task_lists_on_board_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,8 +56,12 @@ ActiveRecord::Schema.define(version: 2022_09_20_191024) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.string "authorization_tier"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "boards", "users", column: "author_id"
+  add_foreign_key "task_lists", "boards"
 end

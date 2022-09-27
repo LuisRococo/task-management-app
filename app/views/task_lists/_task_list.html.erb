@@ -1,0 +1,26 @@
+<div class="card mb-4">
+  <div class="card-header">
+    Task list
+  </div>
+  <div class="card-body">
+    <h5 class="card-title mb-3"><%= task_list.title %> list</h5>
+    <p class="m-0 mb-1">
+        <strong>Color: </strong>
+        <%= task_list.color %>
+        <span class="h5 p-0 m-0" style="color: <%= task_list.color %>">■</span> 
+    </p>
+    <p class="m-0 mb-1"><strong>Priority: </strong><%= task_list.priority %></p>
+    <div class="d-flex justify-content-end">
+        <%= link_to 'Delete',
+                    task_list_path(task_list),
+                    method: :delete, 
+                    class: 'btn btn-danger block option-btn me-2',
+                    data: {confirm: "Do you really want to delete" }
+                    %>
+        <%= link_to 'Edit', edit_task_list_path(task_list), class: 'btn btn-warning block option-btn' %>
+        <% unless request.path == task_list_path(task_list) %>
+          <%= link_to 'See', task_list_path(task_list), class: 'btn btn-primary block option-btn ms-2' %>
+        <% end %>
+    </div>
+  </div>
+</div>

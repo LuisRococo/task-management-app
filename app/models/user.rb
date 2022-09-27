@@ -1,16 +1,21 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :confirmable, :rememberable, :validatable
 
   include AuthorizedPersona::Persona
 
-  authorization_tiers(
-    user: "User - limited access",
-    manager: "Manager - manages users and boards",
-    admin: "Admin - total access"
-  )
+  has_many :boards, foreign_key: :author
 
-  validates :authorization_tier, inclusion: { in: authorization_tier_names }
+  # authorization_tiers(
+  #   user: "User - limited access",
+  #   manager: "Manager - manages users and boards",
+  #   admin: "Admin - total access"
+  # )
+
+  # validates :authorization_tier, inclusion: { in: authorization_tier_names }
+
+  def full_name
+    first_name + ' ' + last_name
+  end
 end

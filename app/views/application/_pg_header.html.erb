@@ -1,0 +1,15 @@
+<% config = false unless config %>
+
+<div class="row d-flex justify-content-center mt-5">
+    <div class="col-12 col-md-9 col-lg-7 text-center">
+        <% if config %>
+            <div class="d-flex justify-content-center">
+                <p class="bg-dark text-white h5 p-2 rounded mb-2">CONFIG</p>
+            </div>
+        <% end %>
+        <h1 class="<%= config ? 'mb-2' : 'mb-4' %>"><%= title %> </h1>
+        <p><%= text %></p>
+    </div>
+</div>
+
+<hr class="my-5">

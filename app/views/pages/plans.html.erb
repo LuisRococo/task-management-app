@@ -1,0 +1,11 @@
+<div class="container">
+    <%= render 'pg_header', user_plans_header %>
+
+    <div class="row d-flex justify-content-center">
+        <% @plans.each do |plan| %>
+            <div class="col-md-4">
+                <%= render 'pages/plan_card', plan: plan %>
+            </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="container">
+    <%= render 'pg_header', board_index_header %>
+
+    <div class="bg-dark rounded p-4 my-4 text-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="h5 m-0">Boards Owner</p>
+                <p class="m-0"><%= board_group_creator_full_name(@boards) %></p>
+            </div>
+            <%= link_to 'Create board', new_board_path, class: 'btn btn-success' %>
+        </div>
+    </div>
+
+    <div class="row">
+        <% @boards.each do |board| %>
+            <div class="col-12 col-md-6">
+                <%= render 'board_card', board: board %>
+            </div>
+        <% end %>
+    </div>
+</div>

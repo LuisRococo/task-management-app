@@ -1,0 +1,24 @@
+<div class="container mb-5">
+    <%= render 'pg_header', task_list_index_header(@board) %>
+
+    <div class="bg-dark rounded p-4 my-4 text-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="h5 m-0">User</p>
+                <p class="m-0"><%= current_user.full_name %></p>
+            </div>
+            <div>
+                <%= link_to 'Go to board', board_path(@board), class: 'btn btn-primary ma-2' %>
+                <%= link_to 'Create task list', new_task_list_path(board_id: @board.id), class: 'btn btn-success' %>
+            </div>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <% @task_lists.each do |task_list| %>
+            <div class="col-12 col-lg-8">
+                <%= render 'task_list', task_list: task_list %>
+            </div>
+        <% end %>
+    </div>
+</div>

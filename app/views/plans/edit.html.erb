@@ -1,0 +1,11 @@
+<% presenter = PlanPresenter.new(@plan) %>
+
+<div class="container mb-5">
+    <%= render 'pg_header', presenter.edit_page_header %>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-lg-7">
+            <%= render 'form' %>
+        </div>
+    </div>
+</div>

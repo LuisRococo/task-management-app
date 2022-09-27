@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TaskManagementApp</title>
+    <title>GreatBoard</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= favicon_link_tag asset_path('favicon.ico') %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -16,8 +17,13 @@
       <%= render 'layouts/navigation' %>
     </header>
 
-    <div class="container">
+    <div class="min-vh-100">
+      <%= render 'layouts/message' %>
       <%= yield %>
     </div>
+
+    <footer>
+      <%= render 'layouts/footer' %>
+    </footer>
   </body>
 </html>

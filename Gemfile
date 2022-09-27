@@ -9,6 +9,7 @@ gem 'rails', '~> 6.1.7'
 gem 'devise'
 gem 'pg'
 gem 'authorized_persona'
+gem 'money-rails', '~>1.12'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets

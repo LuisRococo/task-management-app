@@ -1,0 +1,26 @@
+<%= form_with model: @task_list do |form| %>
+    <% if request.path == new_task_list_path %>
+        <%= hidden_field :task_list, :board_id, value: @board.id %>
+    <% end %>
+    <div class="row">
+        <div class="form-group mb-3 col-12 col-md-6">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: 'form-control', placeholder: 'Enter a name for your list' %>
+        </div>
+
+        <div class="form-group mb-3 col-12 col-md-6">
+            <%= form.label :priority %>
+            <%= form.number_field :priority, class: 'form-control', placeholder: 'Enter a priority for your list',in: 1..10000, step: 1 %>
+        </div>
+
+        <div class="form-group mb-3 col-12 col-md-6">
+            <%= form.label :color %>
+            <%= form.color_field :color, class: 'form-control p-0 cl-picker' %>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-5">
+        <%= link_to 'Return', task_list_form_return_path, class: 'btn btn-primary me-2' %>
+        <%= form.submit class: 'btn btn-success' %>
+    </div>
+<% end %>

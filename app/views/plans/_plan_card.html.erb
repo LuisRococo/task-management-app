@@ -1,0 +1,20 @@
+<div class="card mb-4">
+  <div class="card-header">
+    Plan and prices
+  </div>
+  <div class="card-body">
+    <h5 class="card-title mb-3"><%= plan.title %> plan</h5>
+    <p class="m-0 mb-1"><strong>Price: </strong><%= plan.price %> $</p>
+    <p class="m-0 mb-1"><strong>User quantity: </strong><%= plan.member_quantity %> users</p>
+    <p class="m-0 mb-1"><strong>Renew time: </strong><%= plan.time_months %> months</p>
+    <div class="d-flex justify-content-end">
+        <%= link_to 'Delete',
+                    plan_path(plan),
+                    method: :delete, 
+                    class: 'btn btn-danger block option-btn me-2',
+                    data: {confirm: "Do you really want to delete" }
+                    %>
+        <%= link_to 'Edit', edit_plan_path(plan), class: 'btn btn-warning block option-btn' %>
+    </div>
+  </div>
+</div>

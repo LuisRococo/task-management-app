@@ -1,1 +1,20 @@
 @import 'bootstrap/dist/css/bootstrap';
+
+.option-btn {
+    min-width: 85px;
+}
+
+.task-list-bottom {
+    height: 5px;
+}
+
+.row-fluid-scroll{
+    white-space: nowrap;
+}
+.row-fluid-scroll .col-inside-scroll{
+    display: inline-block !important;
+}
+
+.cl-picker {
+    height: 35px;
+}
