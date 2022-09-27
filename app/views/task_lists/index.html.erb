@@ -7,7 +7,10 @@
                 <p class="h5 m-0">User</p>
                 <p class="m-0"><%= current_user.full_name %></p>
             </div>
-            <%= link_to 'Create task list', new_task_list_path(board_id: @board.id), class: 'btn btn-success' %>
+            <div>
+                <%= link_to 'Go to board', board_path(@board), class: 'btn btn-primary ma-2' %>
+                <%= link_to 'Create task list', new_task_list_path(board_id: @board.id), class: 'btn btn-success' %>
+            </div>
         </div>
     </div>
 
