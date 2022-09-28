@@ -18,7 +18,7 @@ module TaskHelper
   end
 
   def task_form_models
-    @task&.id.nil? ? [@task_list] : [@task]
+    @task&.id.nil? ? [@task_list, @task] : [@task]
   end
 
   def task_form_task_lists

@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task_list, only: [:new, :create, :index]
-  before_action :set_task, only: [:edit, :update]
+  before_action :set_task, only: [:edit, :update, :destroy]
   before_action :task_params, only: [:create]
 
   def index
@@ -35,6 +35,16 @@ class TasksController < ApplicationController
       flash[:alert] = 'There was an error'
       render 'edit'
     end
+  end
+
+  def destroy
+    if @task.destroy
+      flash[:notice] = 'Task was deleted successfully'
+    else
+      flash[:alert] = 'There was an error deleting the task'
+    end
+
+    redirect_to task_list_path(@task.task_list)
   end
 
   private

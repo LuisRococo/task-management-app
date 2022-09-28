@@ -9,6 +9,11 @@
         <%= task.task_list.title %>
     </p>
     <div class="d-flex justify-content-end">
+        <%= link_to 'Delete',
+                    task_path(task),
+                    method: :delete,
+                    class: 'btn btn-danger me-2',
+                    data: {confirm: "Do you really want to delete"} %>
         <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning block option-btn' %>
     </div>
   </div>

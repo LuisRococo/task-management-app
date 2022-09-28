@@ -8,5 +8,5 @@ Rails.application.routes.draw do
       resources :tasks, only: [:new, :index, :create]
     end
   end
-  resources :tasks, only: [:show, :edit, :update]
+  resources :tasks, only: [:show, :edit, :update, :destroy]
 end
