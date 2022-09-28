@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   resources :plans
-  resources :boards
-  resources :task_lists
+  resources :boards do
+    resources :task_lists, shallow: true
+  end
   resources :tasks, only: [:new, :create]
 end

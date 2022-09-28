@@ -9,7 +9,7 @@
             </div>
             <div>
                 <%= link_to 'Go to board', board_path(@board), class: 'btn btn-primary ma-2' %>
-                <%= link_to 'Create task list', new_task_list_path(board_id: @board.id), class: 'btn btn-success' %>
+                <%= link_to 'Create task list', new_board_task_list_path(@board), class: 'btn btn-success' %>
             </div>
         </div>
     </div>

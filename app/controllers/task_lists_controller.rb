@@ -1,6 +1,6 @@
 class TaskListsController < ApplicationController
   before_action :validate_board_url_param_id, only: [:new, :index]
-  before_action :set_board_from_url_param, only: [:new, :index]
+  before_action :set_board_from_url_param, only: [:new, :index, :create]
   before_action :validate_board_param, only: [:create]
   before_action :set_task_list, except: [:index, :new, :create]
 
@@ -17,9 +17,10 @@ class TaskListsController < ApplicationController
 
   def create
     @task_list = TaskList.new(task_list_params)
+    @task_list.board_id = @board.id
     if @task_list.save
       flash[:notice] = 'Task list created'
-      redirect_to board_path(@task_list.board.id)
+      redirect_to board_path(@task_list.board)
     else 
       flash.now[:alert] = 'There was an error'
       render 'new'
@@ -32,7 +33,7 @@ class TaskListsController < ApplicationController
     else
       flash[:alert] = 'There was an error on deleting the task list'
     end
-    redirect_to task_lists_path(board_id: @task_list.board.id)
+    redirect_to board_task_lists_path(@task_list.board)
   end
 
   def edit
@@ -41,7 +42,7 @@ class TaskListsController < ApplicationController
   def update
     if @task_list.update(task_list_params)
       flash[:notice] = 'Task list was updated successfully'
-      redirect_to task_list_path(board_id: @task_list.board.id)
+      redirect_to board_task_lists_path(@task_list.board)
     else
       flash.now[:alert] = 'There was an error'
       render 'edit'
@@ -58,7 +59,7 @@ class TaskListsController < ApplicationController
   end
 
   def validate_board_param
-    unless valid_board?(params[:task_list][:board_id])
+    unless valid_board?(params[:board_id])
       flash[:alert] = 'The board you are trying to access is not valid'
       redirect_to boards_path
     end

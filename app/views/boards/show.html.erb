@@ -10,7 +10,7 @@
                 <p class="m-0"><%= presenter.author_full_name %></p>
             </div>
             <div>
-                <%= link_to 'Manage Lists', task_lists_path(board_id: @board.id), class: 'btn btn-warning me-2' %>
+                <%= link_to 'Manage Lists', board_task_lists_path(@board), class: 'btn btn-warning me-2' %>
                 <button class="btn btn-success">New Task</button>
             </div>
         </div>
