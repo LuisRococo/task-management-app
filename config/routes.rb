@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :plans
   resources :boards
   resources :task_lists
+  resources :tasks, only: [:new, :create]
 end
