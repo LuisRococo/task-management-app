@@ -22,5 +22,9 @@
           <%= link_to 'See', task_list_path(task_list), class: 'btn btn-primary block option-btn ms-2' %>
         <% end %>
     </div>
+    <hr>
+    <div class="d-flex justify-content-end">
+        <%= link_to 'See tasks', task_list_tasks_path(task_list), class: 'btn btn-primary' %>
+    </div>
   </div>
 </div>

@@ -1,7 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task_list, only: [:new, :create]
+  before_action :set_task_list, only: [:new, :create, :index]
   before_action :set_task, only: [:edit, :update]
   before_action :task_params, only: [:create]
+
+  def index
+    @tasks = @task_list.tasks
+  end
 
   def new
     @task = Task.new
