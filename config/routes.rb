@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'our-plans', to: 'pages#plans'
   resources :plans
   resources :boards do
-    resources :task_lists, shallow: true
+    resources :task_lists, shallow: true do
+      resources :tasks, only: [:new, :index, :create]
+    end
   end
-  resources :tasks, only: [:new, :create]
+  resources :tasks, only: [:show]
 end
