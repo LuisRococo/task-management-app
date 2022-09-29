@@ -21,7 +21,7 @@
     </div>
 
     <div class="overflow-auto">
-        <div class="row-fluid row-fluid-scroll">
+        <div class="row-fluid row-fluid-scroll d-flex">
             <% @task_lists.each do |list| %>
                 <%= render 'task_list', list: list %>
             <% end %>
