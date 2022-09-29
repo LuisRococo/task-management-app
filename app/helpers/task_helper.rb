@@ -30,4 +30,10 @@ module TaskHelper
       text: "Set task as completed",
       config: true }
   end
+
+  def task_show_page_header
+    { title: 'Task',
+      text: "See details of task",
+      config: true }
+  end
 end

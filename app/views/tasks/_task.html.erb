@@ -15,6 +15,16 @@
                     class: 'btn btn-danger me-2',
                     data: {confirm: "Do you really want to delete"} %>
         <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning block option-btn' %>
+        <% unless request.path == task_path(task) %>
+          <%= link_to 'See task', task_path(task), class: 'btn btn-primary ms-2' %>
+        <% end %>
     </div>
+
+    <% if !task.completed %>
+      <hr>
+      <div class="d-flex justify-content-end">
+        <%= link_to 'Mark as completed', "/complete_task/#{task.id}", class: 'btn btn-success' %>
+      </div>
+    <% end %>
   </div>
 </div>

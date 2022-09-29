@@ -1,11 +1,13 @@
 class TasksController < ApplicationController
   before_action :set_task_list, only: [:new, :create, :index]
-  before_action :set_task, only: [:edit, :update, :destroy, :complete_task, :complete_task_action]
-  before_action :task_params, only: [:create]
+  before_action :set_task, only: [:edit, :update, :destroy, :complete_task, :complete_task_action, :show]
   before_action :valid_task_incompleted, only: [:complete_task]
 
   def index
     @tasks = @task_list.tasks
+  end
+
+  def show
   end
 
   def new
@@ -28,10 +30,14 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
-    if @task.update(task_params)
+    begin
+      Task.transaction do
+        @task.update(task_params)
+        @task.update(task_list_id: params[:task_list_id])
+      end
       flash[:notice] = 'Task updated successfully'
       redirect_to board_path(@task.board)
-    else
+    rescue
       flash[:alert] = 'There was an error'
       render 'edit'
     end
@@ -75,11 +81,11 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :task_id)
+    params.require(:task).permit(:title, :task_id, :content)
   end
 
   def complete_task_params
-    params.permit(:started_at, :finished_at, :justification)
+    params.permit(:started_at, :finished_at, :justification, :task_list_id)
   end
 
   def set_task
