@@ -51,14 +51,21 @@ class TasksController < ApplicationController
   end
 
   def complete_task_action
-    if @task.update(complete_task_params)
-      @task.update(completed: true)
+    begin
+
+      Task.transaction do
+        @task.update(complete_task_params)
+        @task.update(completed: true)
+      end
+  
       flash[:notice] = 'Task mark as completed'
       redirect_to board_path(@task.board)
-    else
-      flash[:alert] = 'There was an error'
+    
+    rescue ActiveRecord::ActiveRecordError
+      flash.now[:alert] = 'There was an error'
       render complete_task
     end
+      
   end
 
   private
