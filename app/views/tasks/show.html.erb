@@ -37,7 +37,8 @@
                     <p class="m-0">Add User</p>
                 </div>
                 <div class="card-body">
-                    <%= form_with url: '', method: :post do |form| %>
+                    <%= form_with url: '/task_users', method: :post do |form| %>
+                        <%= hidden_field_tag :task_id, @task.id %>
                         <div class="form-group mb-3">
                             <%= form.label :Email %>
                             <%= form.text_field :email, class: 'form-control' %>
