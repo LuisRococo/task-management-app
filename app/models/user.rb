@@ -6,8 +6,9 @@ class User < ApplicationRecord
   include AuthorizedPersona::Persona
 
   has_many :boards, foreign_key: :author
-
   has_many :tasks, foreign_key: :creator
+  has_many :task_users
+  has_many :tasks, through: :task_users
 
   # authorization_tiers(
   #   user: "User - limited access",

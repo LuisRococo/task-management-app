@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   has_rich_text :content
   has_many :task_change_records
   before_save :add_change_record if :will_save_change_to_task_list_id?
+  has_many :task_users
+  has_many :users, through: :task_users
 
   def board
     task_list.board
