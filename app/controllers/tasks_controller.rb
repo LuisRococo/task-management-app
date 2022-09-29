@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task_list, only: [:new, :create, :index]
-  before_action :set_task, only: [:edit, :update, :destroy, :complete_task]
+  before_action :set_task, only: [:edit, :update, :destroy, :complete_task, :complete_task_action]
   before_action :task_params, only: [:create]
   before_action :valid_task_incompleted, only: [:complete_task]
 
@@ -47,8 +47,20 @@ class TasksController < ApplicationController
     redirect_to task_list_path(@task.task_list)
   end
 
-  def complete_task; end
-  
+  def complete_task
+  end
+
+  def complete_task_action
+    if @task.update(complete_task_params)
+      @task.update(completed: true)
+      flash[:notice] = 'Task mark as completed'
+      redirect_to board_path(@task.board)
+    else
+      flash[:alert] = 'There was an error'
+      render complete_task
+    end
+  end
+
   private
 
   def set_task_list
@@ -60,7 +72,7 @@ class TasksController < ApplicationController
   end
 
   def complete_task_params
-
+    params.permit(:started_at, :finished_at, :justification)
   end
 
   def set_task
