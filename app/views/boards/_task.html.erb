@@ -1,10 +1,10 @@
 <div class="w-100 py-3 px-2 bg-light border rounded mb-3 text-wrap">
     <p class="m-0"><small class="m-0 text-muted"><em>Task</em></small></p>
-    <p class="m-0">Task Tille</p>
+    <p class="m-0"><%= task.title %></p>
     <hr class="my-3">
-    <p><small>Lorem, ipsum dolor sit amet consectetur adipisicing.</small></p>
+    <p><small><strong>Author: </strong><%= task.creator.full_name %></small></p>
     <div class="d-flex justify-content-between">
-        <p><small>12/10 - 12/22</small></p>
+        <p><small>10 people</small></p>
         <h5 class="text-end"><span class="badge bg-secondary">New</span></h5>
     </div>
 </div>

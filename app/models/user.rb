@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :boards, foreign_key: :author
 
+  has_many :tasks, foreign_key: :creator
+
   # authorization_tiers(
   #   user: "User - limited access",
   #   manager: "Manager - manages users and boards",
