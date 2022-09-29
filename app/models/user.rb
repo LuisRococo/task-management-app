@@ -21,4 +21,8 @@ class User < ApplicationRecord
   def full_name
     first_name + ' ' + last_name
   end
+
+  def user_on_task?(id)
+    !tasks.find_by_id(id).nil?
+  end
 end
