@@ -1,0 +1,2 @@
+class TaskChangeRecord < ApplicationRecord
+end

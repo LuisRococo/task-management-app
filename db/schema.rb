@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_29_005942) do
+ActiveRecord::Schema.define(version: 2022_09_29_190856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,13 @@ ActiveRecord::Schema.define(version: 2022_09_29_005942) do
     t.integer "time_months"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "task_change_records", force: :cascade do |t|
+    t.bigint "tasks_id"
+    t.string "new_list"
+    t.datetime "date", default: "-4712-01-01 00:00:00"
+    t.index ["tasks_id"], name: "index_task_change_records_on_tasks_id"
   end
 
   create_table "task_lists", force: :cascade do |t|
