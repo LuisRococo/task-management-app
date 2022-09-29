@@ -9,7 +9,10 @@
                 <p class="h5 m-0">User</p>
                 <p class="m-0"><%= current_user.full_name %></p>
             </div>
-            <%= link_to 'Return to task lists', board_task_lists_path(@task_list.board), class: 'btn btn-primary' %>
+            <div>
+                <%= link_to 'Return to task lists', board_task_lists_path(@task_list.board), class: 'btn btn-primary' %>
+                <%= link_to 'Create task', new_task_list_task_path(@task_list), class: 'btn btn-success' %>
+            </div>
         </div>
     </div>
 
