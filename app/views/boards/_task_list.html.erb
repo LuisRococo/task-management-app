@@ -1,13 +1,15 @@
-<div class="col-12 col-md-4 col-lg-3 mx-2 col-inside-scroll pb-4 h-100">
-    <div class="w-100 mb-5">
-        <div class="w-100 bg-light rounded-top p-3 text-center border">
-            <p class="h6 m-0"><%= list.title %> </p>
-            <small class="text-muted"><%= list.priority %>° Priority</small>
+<%= link_to task_list_path(list), class: 'no-a-style' do %>
+    <div class="col-12 col-md-4 col-lg-3 mx-2 col-inside-scroll pb-4 h-100">
+        <div class="w-100 mb-5">
+            <div class="w-100 bg-light rounded-top p-3 text-center border">
+                <p class="h6 m-0"><%= list.title %> </p>
+                <small class="text-muted"><%= list.priority %>° Priority</small>
+            </div>
+            <div class="task-list-bottom rounded-bottom" style="background-color: <%= list.color %>"></div>
         </div>
-        <div class="task-list-bottom rounded-bottom" style="background-color: <%= list.color %>"></div>
-    </div>
 
-    <% list.tasks.each do |task| %>
-        <%= render 'task', task: task %>
-    <% end %>
-</div>
+        <% list.tasks.each do |task| %>
+            <%= render 'task', task: task %>
+        <% end %>
+    </div>
+<% end %>
