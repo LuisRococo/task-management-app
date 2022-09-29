@@ -24,4 +24,10 @@ module TaskHelper
   def task_form_task_lists
     @task&.id.nil? ? @task_list.board.task_lists : @task.board.task_lists
   end
+
+  def task_complete_page_header
+    { title: 'Complete task',
+      text: "Set task as completed",
+      config: true }
+  end
 end

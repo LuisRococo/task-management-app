@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_task_list, only: [:new, :create, :index]
-  before_action :set_task, only: [:edit, :update, :destroy]
+  before_action :set_task, only: [:edit, :update, :destroy, :complete_task]
   before_action :task_params, only: [:create]
+  before_action :valid_task_incompleted, only: [:complete_task]
 
   def index
     @tasks = @task_list.tasks
@@ -24,8 +25,7 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @task.update(task_params)
@@ -47,6 +47,8 @@ class TasksController < ApplicationController
     redirect_to task_list_path(@task.task_list)
   end
 
+  def complete_task; end
+  
   private
 
   def set_task_list
@@ -57,7 +59,18 @@ class TasksController < ApplicationController
     params.require(:task).permit(:title, :task_id)
   end
 
+  def complete_task_params
+
+  end
+
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def valid_task_incompleted
+    if @task.completed
+      flash[:alert] = 'That task is already completed'
+      redirect_to task_path(@task)
+    end
   end
 end
