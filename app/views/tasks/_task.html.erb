@@ -8,6 +8,17 @@
         <strong>Task List: </strong>
         <%= task.task_list.title %>
     </p>
+    <p class="m-0 mb-1">
+        <strong>Author: </strong>
+        <%= task.creator.full_name %>
+    
+    <% unless task.content.blank? %>
+      <p><strong>Content: </strong></p>
+      <hr>
+      </p><%= task.content %><p>
+    <% end %>
+
+    </p>
     <div class="d-flex justify-content-end">
         <%= link_to 'Delete',
                     task_path(task),
