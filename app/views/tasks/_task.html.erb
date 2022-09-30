@@ -3,6 +3,7 @@
     Task
   </div>
   <div class="card-body">
+    <h5 class="text-start"><span class="badge <%= board_task_label_style(task) %>"><%= board_task_label_title(task) %></span></h5>
     <h5 class="card-title mb-3"><%= task.title %> Task</h5>
     <p class="m-0 mb-1">
         <strong>Task List: </strong>
@@ -11,14 +12,15 @@
     <p class="m-0 mb-1">
         <strong>Author: </strong>
         <%= task.creator.full_name %>
+    </p>
+
     
     <% unless task.content.blank? %>
       <p><strong>Content: </strong></p>
       <hr>
-      </p><%= task.content %><p>
+      <p><%= task.content %></p>
     <% end %>
 
-    </p>
     <div class="d-flex justify-content-end">
         <%= link_to 'Delete',
                     task_path(task),
