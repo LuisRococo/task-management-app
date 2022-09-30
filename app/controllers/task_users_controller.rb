@@ -1,6 +1,7 @@
 class TaskUsersController < ApplicationController
   before_action :set_user_to_add, only: [:create]
   before_action :valid_user, only: [:create]
+  before_action :set_task_user, only: [:destroy]
 
   def create
     task_user = TaskUser.create(user: @user_to_add, task_id: params[:task_id])
@@ -12,7 +13,20 @@ class TaskUsersController < ApplicationController
     redirect_to task_path(params[:task_id])
   end
 
+  def destroy
+    if @task_user.destroy
+      flash[:notice] = 'User is not longer assigned to the task'
+    else
+      flash[:alert] = 'There was an error'
+    end
+    redirect_back(fallback_location: root_path) 
+  end
+
   private
+
+  def set_task_user
+    @task_user = TaskUser.find(params[:id])
+  end
 
   def set_user_to_add
     @user_to_add = User.find_by(email: params[:email])
