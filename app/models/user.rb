@@ -10,13 +10,13 @@ class User < ApplicationRecord
   has_many :task_users
   has_many :tasks, through: :task_users
 
-  # authorization_tiers(
-  #   user: "User - limited access",
-  #   manager: "Manager - manages users and boards",
-  #   admin: "Admin - total access"
-  # )
+  authorization_tiers(
+    user: "User - limited access",
+    manager: "Manager - manages users and boards",
+    admin: "Admin - total access"
+  )
 
-  # validates :authorization_tier, inclusion: { in: authorization_tier_names }
+  validates :authorization_tier, inclusion: { in: authorization_tier_names }
 
   def full_name
     first_name + ' ' + last_name

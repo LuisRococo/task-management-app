@@ -19,7 +19,7 @@ Plan.create(title: 'Premium',
             member_quantity: 100,
             price: Money.from_cents(10000))
 
-admin_user = User.create(first_name: 'root', last_name: 'root', email: 'root@root.com', password: 'rootro')
+admin_user = User.create(first_name: 'root', last_name: 'root', email: 'root@root.com', password: 'rootro', authorization_tier: 'admin')
 
 if Rails.env == 'development'
   Board.create(title: 'My greate project I', author_id: admin_user.id)
