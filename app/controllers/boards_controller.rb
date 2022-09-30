@@ -1,4 +1,5 @@
 class BoardsController < ApplicationController
+  authorize_persona class_name: "User"
   grant(
     user: [:show, :index],
     manager: :all,

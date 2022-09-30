@@ -1,4 +1,5 @@
 class TaskListsController < ApplicationController
+  authorize_persona class_name: "User"
   grant(
     user: :all,
     manager: :all,
