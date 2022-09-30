@@ -8,7 +8,9 @@
                 <p class="m-0"><%= @task.title %></p>
             </div>
             <div>
-                <%= link_to 'Return to task lists', board_task_lists_path(@task.board), class: 'btn btn-primary' %>
+                <%= link_to 'Return to task lists',
+                            board_task_lists_path(@task.board),
+                            class: 'btn btn-primary' %>
             </div>
         </div>
     </div>
@@ -22,6 +24,23 @@
     <div class="row d-flex justify-content-center mt-2">
         <div class="col-12 col-lg-8">
             <%= render 'task_records_list', records: @task.task_change_records %>
+        </div>
+    </div>
+
+    <div class="mt-5 text-center">
+        <h2>Users</h2>
+        <hr class="mb-5">
+    </div>
+
+    <div class="row d-flex justify-content-center mt-2">
+        <div class="col-12 col-lg-8">
+            <%= render 'add_user_form' %>
+        </div>
+    </div>
+
+    <div class="row d-flex justify-content-center mt-4">
+        <div class="col-12 col-lg-8">
+            <%= render 'users_assigned' %>
         </div>
     </div>
 </div>

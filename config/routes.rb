@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   resources :tasks, only: [:show, :edit, :update, :destroy]
   get 'complete_task/:id', to: 'tasks#complete_task'
   post 'complete_task/:id', to: 'tasks#complete_task_action'
+  resources :task_users, only: [:create, :destroy]
 end

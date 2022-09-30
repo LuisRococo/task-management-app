@@ -37,7 +37,7 @@ module TaskHelper
       config: true }
   end
 
-  def start_end_date_readable(task)
-    
+  def task_user_id_from_user_task(user, task)
+    TaskUser.find_by_user_and_task(user, task).id
   end
 end
