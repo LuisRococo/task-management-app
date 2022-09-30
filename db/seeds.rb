@@ -24,6 +24,12 @@ admin_user.skip_confirmation!
 admin_user.save!
 
 if Rails.env == 'development'
+  (1..3).to_a.each do |index|
+    manager_user = User.new(first_name: "Manager#{index}", last_name: "Manager#{index}", email: "manager#{index}@manager.com", password: 'manager', authorization_tier: 'manager')
+    manager_user.skip_confirmation!
+    manager_user.save!
+  end
+
   Board.create(title: 'My greate project I', author_id: admin_user.id)
   Board.create(title: 'My greate project II', author_id: admin_user.id)
   Board.create(title: 'My greate project III', author_id: admin_user.id)
