@@ -1,5 +1,9 @@
 class BoardsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show]
+  grant(
+    user: [:show, :index],
+    manager: :all,
+    admin: :all,
+  )
   before_action :set_board, except: [:index, :new, :create]
   before_action :require_same_user, only: [:destroy]
 

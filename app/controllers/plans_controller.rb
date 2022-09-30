@@ -1,5 +1,8 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:edit, :update, :destroy, :show]
+  grant(
+    admin: :all
+  )
 
   def index
     @plans = Plan.all

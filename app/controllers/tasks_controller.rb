@@ -1,4 +1,9 @@
 class TasksController < ApplicationController
+  grant(
+    user: :all,
+    manager: :all,
+    admin: :all,
+  )
   before_action :set_task_list, only: [:new, :create, :index]
   before_action :set_task, only: [:edit, :update, :destroy, :complete_task, :complete_task_action, :show]
   before_action :valid_task_incompleted, only: [:complete_task]

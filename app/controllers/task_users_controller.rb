@@ -1,4 +1,9 @@
 class TaskUsersController < ApplicationController
+  grant(
+    user: :all,
+    manager: :all,
+    admin: :all,
+  )
   before_action :set_user_to_add, only: [:create]
   before_action :valid_user, only: [:create]
   before_action :set_task_user, only: [:destroy]

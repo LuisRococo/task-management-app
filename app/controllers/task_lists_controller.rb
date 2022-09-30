@@ -1,4 +1,10 @@
 class TaskListsController < ApplicationController
+  grant(
+    user: :all,
+    manager: :all,
+    admin: :all,
+  )
+
   before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index, :create]
   before_action :validate_board_param, only: [:create]
