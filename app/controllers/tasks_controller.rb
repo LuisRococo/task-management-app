@@ -23,7 +23,6 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     @task.creator = current_user
-    @task.task_list_id = params[:task_list_id]
     if @task.save
       flash[:notice] = 'Task saved successfully'
       redirect_to board_path(@task_list.board)
@@ -39,7 +38,6 @@ class TasksController < ApplicationController
     begin
       Task.transaction do
         @task.update(task_params)
-        @task.update(task_list_id: params[:task_list_id])
       end
       flash[:notice] = 'Task updated successfully'
       redirect_to board_path(@task.board)
@@ -87,7 +85,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :task_id, :content)
+    params.require(:task).permit(:title, :task_id, :content, :task_list_id)
   end
 
   def complete_task_params

@@ -6,7 +6,12 @@
 
     <div class="form-group mb-3">
         <%= form.label :task_list_id%>
-        <%= select_tag :task_list_id, options_from_collection_for_select(task_form_task_lists, 'id', 'title'), class: 'form-control' %>
+        <%= form.collection_select :task_list_id,
+                        task_form_task_lists,
+                        :id,
+                        :title,
+                        {},
+                        class: 'form-control' %>
     </div>
 
     <div class="form-group mb-3">
