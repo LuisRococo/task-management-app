@@ -6,7 +6,7 @@
         <p><small><strong>Author: </strong><%= task.creator.full_name %></small></p>
         <div class="d-flex justify-content-between">
             <p><small>10 people</small></p>
-            <h5 class="text-end"><span class="badge bg-secondary">New</span></h5>
+            <h5 class="text-end"><span class="badge <%= board_task_label_style(task) %>"><%= board_task_label_title(task) %></span></h5>
         </div>
     </div>
 <% end %>

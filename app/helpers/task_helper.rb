@@ -40,4 +40,12 @@ module TaskHelper
   def task_user_id_from_user_task(user, task)
     TaskUser.find_by_user_and_task(user, task).id
   end
+
+  def board_task_label_title(task)
+    task.completed ? 'Finished' : 'Incomplete'
+  end
+
+  def board_task_label_style(task)
+    task.completed ? 'bg-success' : 'bg-secondary'
+  end
 end
