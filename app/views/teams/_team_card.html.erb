@@ -16,13 +16,6 @@
                         <p class="m-0"><%= user.full_name %></p>
                         <p class="m-0"><%= user.email %></p>
                     </div>
-                    <div>
-                        <%= link_to 'delete',
-                                    '',
-                                    class: 'btn btn-danger',
-                                    data: {confirm: "Do you really want to delete"},
-                                    method: :delete %>
-                    </div>
                 </div>
             </div>
         <% end %>
