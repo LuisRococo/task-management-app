@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable, :rememberable, :validatable
+  devise :invitable, :database_authenticatable, :registerable, :confirmable, :rememberable, :validatable
 
   include AuthorizedPersona::Persona
 
@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :tasks, foreign_key: :creator
   has_many :task_users
   has_many :tasks, through: :task_users
+  
+  has_many :team_members, class_name: 'User', foreign_key: :manager_id
+  belongs_to :manager, class_name: 'User', optional: true
 
   authorization_tiers(
     user: "User - limited access",

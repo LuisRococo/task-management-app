@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_30_210640) do
+ActiveRecord::Schema.define(version: 2022_10_02_014030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,7 +127,20 @@ ActiveRecord::Schema.define(version: 2022_09_30_210640) do
     t.string "authorization_tier"
     t.string "first_name"
     t.string "last_name"
+    t.bigint "manager_id"
+    t.string "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer "invitation_limit"
+    t.string "invited_by_type"
+    t.bigint "invited_by_id"
+    t.integer "invitations_count", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
+    t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
+    t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
+    t.index ["manager_id"], name: "index_users_on_manager_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -136,4 +149,5 @@ ActiveRecord::Schema.define(version: 2022_09_30_210640) do
   add_foreign_key "boards", "users", column: "author_id"
   add_foreign_key "task_lists", "boards"
   add_foreign_key "tasks", "users", column: "creator_id"
+  add_foreign_key "users", "users", column: "manager_id"
 end

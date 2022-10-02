@@ -17,12 +17,12 @@
         <li class="nav-item">
           <%= link_to 'Pricing', our_plans_path, class: "nav-link #{nav_active_location_class(our_plans_path)}" %>
         </li>
-        <% if user_logged %>
+        <% if user_logged? %>
           <li class="nav-item">
             <%= link_to 'Boards', boards_path, class: "nav-link #{nav_active_location_class(boards_path)}" %>
           </li>
         <% end %>
-        <% if user_logged && current_user.authorization_tier == 'admin' %>
+        <% if user_admin?%>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Admin options
@@ -32,12 +32,19 @@
             </ul>
           </li>
         <% end %>
-        <% if user_logged %>
+        <% if user_logged? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               User
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <% if user_can_access_team_resources %>
+                <li>
+                    <%= link_to 'Teams', 
+                                  user_teams_path(current_user), 
+                                  class: 'dropdown-item' %>
+                </li>
+              <% end %>
               <li>
                 <%= link_to 'Log out', 
                               destroy_user_session_path, 
@@ -47,7 +54,7 @@
             </ul>
           </li>
         <% end %>
-        <% if !user_logged%>
+        <% if !user_logged?%>
           <li class="nav-item">
             <%= link_to 'Log in', new_user_session_path, class: "nav-link #{nav_active_location_class(new_user_session_path)}" %>
           </li>
