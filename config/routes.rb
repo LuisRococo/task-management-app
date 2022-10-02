@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users do
-    resources :teams, only: [:new, :create]
+    resources :teams, only: [:new, :create, :index]
   end
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'

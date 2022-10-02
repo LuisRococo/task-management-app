@@ -1,10 +1,14 @@
 class TeamsController < ApplicationController
   authorize_persona class_name: "User"
   before_action :validate_already_existing_user, only: [:create]
-  before_action :same_user, only: [:create, :new]
+  before_action :same_user, only: [:create, :new, :index]
   grant(
     manager: :all
   )
+
+  def index
+    @team = current_user.team_members
+  end
 
   def new
   end
