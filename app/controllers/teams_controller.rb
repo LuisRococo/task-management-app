@@ -1,8 +1,8 @@
 class TeamsController < ApplicationController
   authorize_persona class_name: "User"
   before_action :validate_already_existing_user, only: [:create]
+  before_action :same_user, only: [:create, :new]
   grant(
-    admin: :all,
     manager: :all
   )
 
@@ -26,6 +26,13 @@ class TeamsController < ApplicationController
     if user_found
       flash[:alert] = 'That emails is already associated to a team'
       redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def same_user
+    unless current_user.id == params[:user_id].to_i
+      flash[:alert] = 'You are not allowed to access this url'
+      redirect_to root_path
     end
   end
 end
