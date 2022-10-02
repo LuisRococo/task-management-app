@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   resources :plans
