@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   get 'complete_task/:id', to: 'tasks#complete_task'
   post 'complete_task/:id', to: 'tasks#complete_task_action'
   resources :task_users, only: [:create, :destroy]
+  resources :teams, only: [:new]
 end
