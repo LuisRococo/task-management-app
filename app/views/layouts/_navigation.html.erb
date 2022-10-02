@@ -38,7 +38,7 @@
               User
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <% if authorized_to?(:new, :new_user_team) %>
+              <% if user_can_access_team_resources %>
                 <li>
                     <%= link_to 'Teams', 
                                   user_teams_path(current_user), 
