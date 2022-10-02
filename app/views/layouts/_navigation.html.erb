@@ -38,6 +38,13 @@
               User
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <% if authorized_to?(:new, :new_user_team) %>
+                <li>
+                    <%= link_to 'Teams', 
+                                  user_teams_path(current_user), 
+                                  class: 'dropdown-item' %>
+                </li>
+              <% end %>
               <li>
                 <%= link_to 'Log out', 
                               destroy_user_session_path, 
