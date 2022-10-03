@@ -11,11 +11,12 @@
         <%= presenter.auth_tier %>
     </p>
 
-    <% if regular_user? %>
+    <% if presenter.should_show_manager_name? %>
         <p class="m-0 mb-1">
             <strong>Manager: </strong>
             <%= user.manager.full_name %>
         </p>
+        <%= link_to 'see manager', user_path(user.manager), class: 'btn btn-primary' %>
     <% end %>
   </div>
 </div>
