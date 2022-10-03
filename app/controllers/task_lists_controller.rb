@@ -9,8 +9,10 @@ class TaskListsController < ApplicationController
   before_action :set_board_from_url_param, only: [:new, :index, :create]
   before_action :set_task_list, except: [:index, :new, :create]
   
-  before_action :validate_board_url_param_id, only: [:new, :index]
+  before_action :validate_board_url_param_id, only: [:new, :index, :create]
   before_action :validate_board_param, only: [:create]
+
+  before_action :validate_task_list, only: [:edit, :update, :destroy, :show]
 
   def index
     @task_lists = @board.task_lists
@@ -90,5 +92,12 @@ class TaskListsController < ApplicationController
 
   def set_task_list
     @task_list = TaskList.find(params[:id])
+  end
+
+  def validate_task_list
+    unless current_user.is_manager_or_manager_team?(@task_list.board.author)
+      flash[:alert] = 'You cannot access that task list'
+      redirect_to board_index_path(current_user)
+    end
   end
 end
