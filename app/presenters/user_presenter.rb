@@ -13,4 +13,8 @@ class UserPresenter
     @user.authorization_tier.capitalize
   end
 
+  def should_show_manager_name?
+    @user.authorization_tier == 'user'
+  end
+
 end
