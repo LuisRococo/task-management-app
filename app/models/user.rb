@@ -5,6 +5,8 @@ class User < ApplicationRecord
 
   include AuthorizedPersona::Persona
 
+  @@BOARDS_LIMIT = 10
+
   has_many :boards, foreign_key: :author
   has_many :tasks, foreign_key: :creator
   has_many :task_users
@@ -39,6 +41,14 @@ class User < ApplicationRecord
     else
       self == manager_to_compare
     end
+  end
+
+  def self.BOARDS_LIMIT
+    @@BOARDS_LIMIT
+  end
+
+  def max_boards_limit_reached?
+    boards.count >= @@BOARDS_LIMIT
   end
 
   private
