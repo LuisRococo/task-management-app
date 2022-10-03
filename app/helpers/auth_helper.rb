@@ -4,10 +4,10 @@ module AuthHelper
   end
 
   def user_can_access_team_resources
-    user_logged? && current_user.authorization_tier == :manager
+    user_logged? && current_user.authorization_tier == 'manager'
   end
 
   def user_admin?
-    user_logged? && current_user.authorization_tier == :admin
+    user_logged? && current_user.authorization_tier == 'admin'
   end
 end
