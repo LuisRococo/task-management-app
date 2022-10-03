@@ -38,10 +38,12 @@
               User
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li class="dropdown-item">
-                  <strong>Luis Roberto</strong> 
-                  <br>
-                  <small>Admin</small>
+              <li>
+                  <%= link_to user_path(current_user), class: 'dropdown-item' do %>
+                    <strong><%= current_user.first_name %></strong> 
+                    <br>
+                    <small><%= current_user.authorization_tier %></small>
+                  <% end %>
               </li>
               <li><hr class="dropdown-divider"></li>
               <% if user_can_access_team_resources %>

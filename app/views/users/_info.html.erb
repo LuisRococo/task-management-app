@@ -1,0 +1,21 @@
+<% presenter = UserPresenter.new(user) %>
+
+<div class="card mb-4">
+  <div class="card-header">
+    User
+  </div>
+  <div class="card-body">
+    <h5 class="card-title mb-3"><%= user.full_name %></h5>
+    <p class="m-0 mb-1">
+        <strong>User type: </strong>
+        <%= presenter.auth_tier %>
+    </p>
+
+    <% if regular_user? %>
+        <p class="m-0 mb-1">
+            <strong>Manager: </strong>
+            <%= user.manager.full_name %>
+        </p>
+    <% end %>
+  </div>
+</div>
