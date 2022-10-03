@@ -5,11 +5,12 @@ class BoardsController < ApplicationController
     manager: :all,
     admin: :all,
   )
+  before_action :set_manager, only: [:index]
   before_action :set_board, except: [:index, :new, :create]
   before_action :require_same_user, only: [:destroy]
 
   def index
-    @boards = current_user.boards
+    @boards = @manager.boards
   end
 
   def destroy
@@ -60,6 +61,10 @@ class BoardsController < ApplicationController
 
   def set_board
     @board = Board.find(params[:id])
+  end
+
+  def set_manager
+    @manager = User.find(params[:user_id])
   end
 
   def board_params

@@ -20,4 +20,8 @@ module BoardHelper
   def board_group_creator_full_name(boards)
     boards.first.author.full_name
   end
+
+  def manager_full_name
+    @manager.full_name
+  end
 end
