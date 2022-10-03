@@ -19,9 +19,10 @@
                     <div>
                         <%= link_to 'delete',
                                     task_user_path(task_user_id_from_user_task(user, @task)),
-                                    class: 'btn btn-danger',
+                                    class: 'btn btn-danger me-2',
                                     data: {confirm: "Do you really want to delete"},
                                     method: :delete %>
+                        <%= link_to 'see', user_path(user), class: 'btn btn-primary' %>
                     </div>
                 </div>
             </div>
