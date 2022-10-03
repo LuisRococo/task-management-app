@@ -6,8 +6,10 @@ class TasksController < ApplicationController
     admin: :all,
   )
   before_action :set_task_list, only: [:new, :create, :index]
-  before_action :set_task, only: [:edit, :update, :destroy, :complete_task, :complete_task_action, :show]
+  before_action :set_task, except: [:new, :create, :index]
   before_action :valid_task_incompleted, only: [:complete_task]
+  before_action :validate_task_list, only: [:new, :create, :index]
+  before_action :validate_task, except: [:new, :create, :index]
 
   def index
     @tasks = @task_list.tasks
@@ -100,6 +102,20 @@ class TasksController < ApplicationController
     if @task.completed
       flash[:alert] = 'That task is already completed'
       redirect_to task_path(@task)
+    end
+  end
+
+  def validate_task_list
+    unless current_user.is_manager_or_manager_team?(@task_list.board.author)
+      flash[:alert] = 'You cannot access this task list'
+      redirect_to board_index_path(current_user)
+    end
+  end
+
+  def validate_task
+    unless current_user.is_manager_or_manager_team?(@task.task_list.board.author)
+      flash[:alert] = 'You cannot access this task'
+      redirect_to board_index_path(current_user)
     end
   end
 end
