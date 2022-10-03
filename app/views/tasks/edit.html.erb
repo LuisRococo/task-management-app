@@ -1,6 +1,8 @@
 <div class="container">
     <%= render 'pg_header', task_new_header %>
 
+    <%= render 'model_errors', obj: @task %>
+
     <div class="row d-flex justify-content-center">
         <div class="col-12 col-lg-7">
             <%= render 'form' %>
