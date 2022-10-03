@@ -28,4 +28,12 @@ class User < ApplicationRecord
   def user_on_task?(id)
     !tasks.find_by_id(id).nil?
   end
+
+  def is_manager_or_manager_team?(manager)
+    if authorization_tier == 'user'
+      manager == @manager
+    else
+      self == manager
+    end
+  end
 end
