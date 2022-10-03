@@ -39,12 +39,16 @@ class TaskUsersController < ApplicationController
   end
 
   def valid_user
+    task = Task.find(params[:task_id])
     if @user_to_add.nil?
       flash[:alert] = 'The email does not belongs to any user'
-      redirect_to task_path(params[:task_id])
-    elsif @user_to_add.user_on_task?(params[:task_id])
+      redirect_to task_path(task)
+    elsif @user_to_add.user_on_task?(task)
       flash[:alert] = 'The user already is assigned on the task'
-      redirect_to task_path(params[:task_id])
+      redirect_to task_path(task)
+    elsif !@user_to_add.is_manager_or_manager_team?(task.board.author)
+      flash[:alert] = 'You cannot add a user that is not member of your team'
+      redirect_to task_path(task)
     end
   end
 end
