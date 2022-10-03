@@ -17,11 +17,11 @@ module BoardHelper
       config: true }
   end
 
-  def board_group_creator_full_name(boards)
-    boards.first.author.full_name
+  def board_author_full_name
+    @author.full_name
   end
 
-  def manager_full_name
-    @manager.full_name
+  def board_form_models
+    @board&.id.nil? ? [@author, @board] : [@board]
   end
 end

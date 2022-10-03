@@ -19,7 +19,7 @@
         </li>
         <% if user_logged? %>
           <li class="nav-item">
-            <%= link_to 'Boards', boards_path, class: "nav-link #{nav_active_location_class(boards_path)}" %>
+            <%= link_to 'Boards', board_index_path(current_user), class: "nav-link #{nav_active_location_class(board_index_path(current_user))}" %>
           </li>
         <% end %>
         <% if user_admin?%>

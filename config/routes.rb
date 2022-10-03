@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users do
     resources :teams, only: [:new, :create, :index]
-    resources :boards, only: [:index]
+    resources :boards, shallow: true
   end
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   resources :plans
-  resources :boards, except: [:index] do
+  resources :boards, except: [:index, :new, :create] do
     resources :task_lists, shallow: true do
       resources :tasks, only: [:new, :index, :create]
     end

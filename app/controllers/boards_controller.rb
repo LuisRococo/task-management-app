@@ -5,12 +5,15 @@ class BoardsController < ApplicationController
     manager: :all,
     admin: :all,
   )
-  before_action :set_manager, only: [:index]
-  before_action :set_board, except: [:index, :new, :create]
-  before_action :require_same_user, only: [:destroy]
+  before_action :set_author_from_url, only: [:index, :create, :new]
+  before_action :set_board_from_url, only: [:show, :edit, :update, :destroy]
+  before_action :set_author_from_board, only: [:edit, :update, :destroy, :show]
+  
+  before_action :same_user_as_author, only: [:create, :new, :edit, :update, :destroy]
+  before_action :part_of_team, only: [:index, :show]
 
   def index
-    @boards = @manager.boards
+    @boards = @author.boards
   end
 
   def destroy
@@ -20,7 +23,7 @@ class BoardsController < ApplicationController
       flash[:alert] = 'Something went wrong'
     end
 
-    redirect_to boards_path, status: :see_other
+    redirect_to user_boards_path(current_user), status: :see_other
   end
 
   def show
@@ -33,7 +36,7 @@ class BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
-    @board.author = current_user
+    @board.author = @author
 
     if @board.save
       flash[:notice] = 'A new board was created'
@@ -58,23 +61,40 @@ class BoardsController < ApplicationController
   end
 
   private
-
-  def set_board
+  def set_board_from_url
     @board = Board.find(params[:id])
   end
 
-  def set_manager
-    @manager = User.find(params[:user_id])
+  def set_author_from_url
+    @author = User.find(params[:user_id])
   end
 
   def board_params
     params.require(:board).permit(:title)
   end
 
-  def require_same_user
-    unless @board.author == current_user
-      flash[:alert] = 'You can only delete your own boards'
-      redirect_to boards_path
+  def access_to_board
+    unless @board.user_has_access?(current_user)
+      flash[:alert] = 'You can only access boards that belongs to you or your team'
+      redirect_to board_index_path(current_user)
     end
+  end
+
+  def part_of_team
+    unless current_user.is_manager_or_manager_team?(@author)
+      flash[:alert] = 'You can only access boards that belongs to you or your team'
+      redirect_to board_index_path(current_user)
+    end
+  end
+
+  def same_user_as_author
+    unless current_user == @author
+      flash[:alert] = 'You can only access boards that belongs to you'
+      redirect_to board_index_path(current_user)
+    end
+  end
+
+  def set_author_from_board
+    @author = @board.author
   end
 end
