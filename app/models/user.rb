@@ -20,6 +20,10 @@ class User < ApplicationRecord
   )
 
   validates :authorization_tier, inclusion: { in: authorization_tier_names }
+  before_save :capitalize_name
+  validates :first_name, length: { minimum: 4, maximum: 25 }
+  validates :last_name, length: { minimum: 4, maximum: 25 }
+
 
   def full_name
     first_name + ' ' + last_name
@@ -35,5 +39,12 @@ class User < ApplicationRecord
     else
       self == manager
     end
+  end
+
+  private
+
+  def capitalize_name
+    first_name.capitalize!
+    last_name.capitalize!
   end
 end
