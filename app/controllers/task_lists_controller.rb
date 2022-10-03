@@ -6,10 +6,11 @@ class TaskListsController < ApplicationController
     admin: :all,
   )
 
-  before_action :validate_board_url_param_id, only: [:new, :index]
   before_action :set_board_from_url_param, only: [:new, :index, :create]
-  before_action :validate_board_param, only: [:create]
   before_action :set_task_list, except: [:index, :new, :create]
+  
+  before_action :validate_board_url_param_id, only: [:new, :index]
+  before_action :validate_board_param, only: [:create]
 
   def index
     @task_lists = @board.task_lists
@@ -61,19 +62,22 @@ class TaskListsController < ApplicationController
   def validate_board_url_param_id
     unless valid_board?(params[:board_id])
       flash[:alert] = 'The board you are trying to access is not valid'
-      redirect_to boards_path
+      redirect_to board_index_path(current_user)
     end
   end
 
   def validate_board_param
     unless valid_board?(params[:board_id])
       flash[:alert] = 'The board you are trying to access is not valid'
-      redirect_to boards_path
+      redirect_to board_index_path(current_user)
     end
   end
 
   def valid_board?(id)
-    !current_user.boards.find_by_id(id).nil?
+    board = Board.find_by_id(id)
+    return false unless board
+
+    current_user.is_manager_or_manager_team?(board.author)
   end
 
   def task_list_params
