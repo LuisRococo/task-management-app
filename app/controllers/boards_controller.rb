@@ -7,9 +7,9 @@ class BoardsController < ApplicationController
   )
   before_action :set_author_from_url, only: [:index, :create, :new]
   before_action :set_board_from_url, only: [:show, :edit, :update, :destroy]
-  before_action :set_author_from_board, only: [:edit, :update, :destroy, :show]
+  before_action :set_author_from_board, except: [:index, :new, :create]
   
-  before_action :same_user_as_author, only: [:create, :new, :edit, :update, :destroy]
+  before_action :same_user_as_author, except: [:index, :show]
   before_action :part_of_team, only: [:index, :show]
 
   def index
