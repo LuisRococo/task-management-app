@@ -6,6 +6,7 @@ class User < ApplicationRecord
   include AuthorizedPersona::Persona
 
   @@BOARDS_LIMIT = 10
+  @@TRIAL_TIME_LIMIT_DAYS = 15
 
   has_many :boards, foreign_key: :author
   has_many :tasks, foreign_key: :creator
@@ -47,8 +48,19 @@ class User < ApplicationRecord
     @@BOARDS_LIMIT
   end
 
+  def self.TRIAL_TIME_LIMIT_DAYS
+    @@TRIAL_TIME_LIMIT_DAYS
+  end
+
   def max_boards_limit_reached?
     boards.count >= @@BOARDS_LIMIT
+  end
+
+  def has_trial_expired?
+    return true if trial_block
+    days_of_trial_used = (Time.now - created_at.to_time) / 1.day
+    days_of_trial_used = days_of_trial_used.to_i
+    days_of_trial_used > @@TRIAL_TIME_LIMIT_DAYS
   end
 
   private
