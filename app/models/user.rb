@@ -15,7 +15,7 @@ class User < ApplicationRecord
   
   has_many :team_members, class_name: 'User', foreign_key: :manager_id
   belongs_to :manager, class_name: 'User', optional: true
-  belongs_to :plan
+  belongs_to :plan, optional: true
 
   authorization_tiers(
     user: "User - limited access",
@@ -62,6 +62,17 @@ class User < ApplicationRecord
     days_of_trial_used = (Time.now - created_at.to_time) / 1.day
     days_of_trial_used = days_of_trial_used.to_i
     days_of_trial_used > @@TRIAL_TIME_LIMIT_DAYS
+  end
+
+  def user_has_plan?
+    !!plan
+  end
+
+  def has_payment_expired?
+    raise Exception.new "User has no plan" unless user_has_plan?
+    days_after_payment = (Time.now - paid_date.to_time) / 1.day
+    days_after_payment = days_after_payment.to_i
+    days_after_payment > plan.duration_in_days
   end
 
   private
