@@ -67,6 +67,8 @@ class TasksController < ApplicationController
 
       Task.transaction do
         @task.update(complete_task_params)
+        doing_time = (@task.finished_at - @task.started_at).to_i
+        @task.update(doing_time: doing_time)
         @task.update(completed: true)
       end
   

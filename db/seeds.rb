@@ -84,10 +84,18 @@ if Rails.env == 'development'
       board.task_lists.where(priority: 4).each do |task_list|
         task_list.tasks << Task.new(title: 'Completed I',
                                     creator: manager,
-                                    completed: true)
+                                    completed: true,
+                                    justification: 'Lorem ipsum lom remson',
+                                    doing_time: 24.hours.to_i,
+                                    started_at: Time.now - 1.day,
+                                    finished_at: Time.now)
         task_list.tasks << Task.new(title: 'Completed II',
                                     creator: manager,
-                                    completed: true)
+                                    completed: true,
+                                    justification: 'Lorem ipsum lom remson',
+                                    doing_time: 24.hours.to_i,
+                                    started_at: Time.now - 1.day,
+                                    finished_at: Time.now)
       end
     end
   end

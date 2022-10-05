@@ -1,3 +1,5 @@
+<% presenter = TaskPresenter.new(task) %>
+
 <div class="card mb-4">
   <div class="card-header">
     Task
@@ -13,6 +15,28 @@
         <strong>Author: </strong>
         <%= task.creator.full_name %>
     </p>
+
+    <% if task.completed %>
+      <p class="m-0 mb-1">
+        <strong>Started at: </strong>
+        <%= presenter.readable_started_date %>
+      </p>
+
+      <p class="m-0 mb-1">
+        <strong>Finished at: </strong>
+        <%= presenter.readable_finished_date %>
+      </p>
+
+      <p class="m-0 mb-1">
+        <strong>Doing time: </strong>
+        <%= presenter.readable_doing_time %>
+      </p>
+
+      <p class="m-0 mb-1">
+        <strong>Justification: </strong>
+        <%= task.justification %>
+      </p>
+    <% end %>
 
     
     <% unless task.content.blank? %>

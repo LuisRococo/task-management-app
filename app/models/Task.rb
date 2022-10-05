@@ -21,4 +21,9 @@ class Task < ApplicationRecord
   def add_change_record_on_create
     TaskChangeRecord.create(new_list: self.task_list.title, task: self)
   end
+
+  def doing_time_hours
+    return nil unless doing_time
+    doing_time / 1.hour
+  end
 end
