@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :teams, only: [:new, :create, :index]
     resources :boards, shallow: true
   end
+  delete 'end_trial/:id', to: 'users#end_trial'
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   

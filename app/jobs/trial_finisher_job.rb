@@ -7,7 +7,7 @@ class TrialFinisherJob < ApplicationJob
 
   def end_expired_trials
     User.where(trial_block: false, authorization_tier: 'manager', plan_id: nil).each do |manager|
-      if manager.has_trial_expired?
+      if manager.calculate_has_trial_expired?
         manager.trial_block = true
       end
     end

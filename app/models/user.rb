@@ -57,11 +57,23 @@ class User < ApplicationRecord
     boards.count >= @@BOARDS_LIMIT
   end
 
-  def has_trial_expired?
+  def calculate_has_trial_expired?
     return true if trial_block
     days_of_trial_used = (Time.now - created_at.to_time) / 1.day
     days_of_trial_used = days_of_trial_used.to_i
     days_of_trial_used > @@TRIAL_TIME_LIMIT_DAYS
+  end
+
+  def has_free_trial?
+    return false unless authorization_tier == 'manager'
+    !user_has_plan? && !trial_block
+  end
+
+  def end_trial_period
+    if has_free_trial?
+      self.trial_block = true
+      self.save!
+    end
   end
 
   def user_has_plan?

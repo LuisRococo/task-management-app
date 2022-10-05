@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :board_index_path
+  helper_method :board_index_path, :access_to_user_crud?
 
   protected
 
@@ -26,5 +26,11 @@ class ApplicationController < ActionController::Base
   def board_index_path(user)
     board_author = user.authorization_tier == 'user' ? user.manager : user
     user_boards_path(board_author)
+  end
+
+  def access_to_user_crud?(target_user)
+    return true if target_user == current_user
+    return true if current_user.authorization_tier == 'admin'
+    current_user.is_manager_or_manager_team?(target_user)
   end
 end

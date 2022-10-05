@@ -12,6 +12,34 @@
         </div>
     </div>
 
+    <% if access_to_user_crud?(@user) %>
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-8">
+            <div class="card mb-4">
+                    <div class="card-header">
+                        More options
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <%= link_to 'Edit information', '#', class: 'btn btn-warning me-2' %>
+                            <%= link_to 'Delete user',
+                                        '',
+                                        class: 'btn btn-danger me-2',
+                                        method: :delete %>
+
+                            <% if @user.has_free_trial? %>
+                                <%= link_to 'Remove trial period',
+                                            "/end_trial/#{@user.id}",
+                                            class: 'btn btn-danger',
+                                            method: :delete %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
     <div class="row d-flex justify-content-center">
         <div class="col-12 col-lg-8">
            <%= render 'info', user: @user %>

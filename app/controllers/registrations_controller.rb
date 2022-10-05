@@ -1,7 +1,7 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
-    resource.authorization_tier = 'user'
+    resource.authorization_tier = 'manager'
 
     resource.save
     yield resource if block_given?
