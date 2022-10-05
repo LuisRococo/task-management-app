@@ -37,11 +37,12 @@ class User < ApplicationRecord
     !tasks.find_by_id(id).nil?
   end
 
-  def is_manager_or_manager_team?(manager_to_compare)
+  def is_manager_or_manager_team?(user)
     if authorization_tier == 'user'
-      manager == manager_to_compare
+      manager == user
     else
-      self == manager_to_compare
+      return true if self == user
+      !self.team_members.find_by_id(user.id).blank?
     end
   end
 
