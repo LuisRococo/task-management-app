@@ -6,10 +6,22 @@ class UsersController < ApplicationController
     admin: :all,
   )
 
-  before_action :set_user, only: [:show, :end_trial]
-  before_action :access_to_crud, only: [:end_trial]
+  before_action :set_user
+  before_action :access_to_crud, only: [:end_trial, :edit, :update]
 
   def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @user.update(user_params)
+      flash[:notice] = 'The user was updated'
+    else
+      flash[:alert] = 'There was an error'
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   def end_trial
@@ -19,6 +31,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :password, :password_confirmation)
+  end
 
   def set_user
     @user = User.find(params[:id])
