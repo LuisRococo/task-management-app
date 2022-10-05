@@ -14,12 +14,16 @@ class TeamsController < ApplicationController
   end
 
   def create
-    User.invite! email: params[:email],
+    if current_user.max_team_members_reached?
+      flash[:alert] = 'You are not allow to add more members to your team!'
+    else
+      User.invite! email: params[:email],
                   first_name: params[:first_name],
                   last_name: params[:last_name],
                   authorization_tier: :user,
                   manager: current_user
-    flash[:notice] = "The invitation was send to #{params[:email]}"
+      flash[:notice] = "The invitation was send to #{params[:email]}"
+    end
     redirect_back(fallback_location: root_path)
   end
 

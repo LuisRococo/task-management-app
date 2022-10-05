@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   @@BOARDS_LIMIT = 10
   @@TRIAL_TIME_LIMIT_DAYS = 15
+  @@TRIAL_MAX_TEAM_MEMBERS = 5
 
   has_many :boards, foreign_key: :author
   has_many :tasks, foreign_key: :creator
@@ -54,8 +55,22 @@ class User < ApplicationRecord
     @@TRIAL_TIME_LIMIT_DAYS
   end
 
+  def self.TRIAL_MAX_TEAM_MEMBERS
+    @@TRIAL_MAX_TEAM_MEMBERS
+  end
+
   def max_boards_limit_reached?
     boards.count >= @@BOARDS_LIMIT
+  end
+
+  def max_team_members
+    return nil unless authorization_tier == 'manager'
+    has_free_trial? ? @@TRIAL_MAX_TEAM_MEMBERS : plan.member_quantity
+  end
+
+  def max_team_members_reached?
+    return true if max_team_members.nil?
+    team_members.count >= max_team_members
   end
 
   def calculate_has_trial_expired?
