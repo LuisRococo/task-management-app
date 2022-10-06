@@ -1,0 +1,19 @@
+<% 
+msj = 'Get plan'
+block = false
+
+if !user_logged?
+    path = new_user_registration_path
+elsif current_user.user_has_plan?
+    path = '#'
+    block = (current_user.plan == plan)
+else
+    path = '#'
+end
+%>
+
+<%= link_to path do %>
+    <button class="btn btn-success btn-lg" <%= 'disabled' if block %>>
+        <%= msj %>
+    </button>
+<% end %>
