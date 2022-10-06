@@ -97,7 +97,7 @@ class TaskListsController < ApplicationController
   def validate_task_list
     unless current_user.is_manager_or_manager_team?(@task_list.board.author)
       flash[:alert] = 'You cannot access that task list'
-      redirect_to board_index_path(current_user)
+      redirect_back(fallback_location: root_path)
     end
   end
 end

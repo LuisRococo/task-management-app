@@ -6,11 +6,12 @@ class BoardsController < ApplicationController
     admin: :all,
   )
   before_action :set_author_from_url, only: [:index, :create, :new]
-  before_action :set_board_from_url, only: [:show, :edit, :update, :destroy]
+  before_action :set_board_from_url, only: [:show, :edit, :update, :destroy, :toggle_visibility]
   before_action :set_author_from_board, except: [:index, :new, :create]
   
   before_action :same_user_as_author, except: [:index, :show]
-  before_action :part_of_team, only: [:index, :show]
+  before_action :part_of_team, only: [:index, :toggle_visibility]
+  before_action :access_to_board, only: [:show]
 
   def index
     @boards = @author.boards
@@ -58,6 +59,12 @@ class BoardsController < ApplicationController
       flash.now[:alert] = 'There was an error'
       render 'edit'
     end
+  end
+
+  def toggle_visibility
+    @board.toggle_visibility
+    flash[:notice] = 'The visibility of the board has changed'
+    redirect_back(fallback_location: root_path) 
   end
 
   private

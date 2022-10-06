@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :tasks, only: [:new, :index, :create]
     end
   end
+  post 'toggle_board_visibility/:id', to: 'boards#toggle_visibility'
   
   resources :tasks, only: [:show, :edit, :update, :destroy]
   get 'complete_task/:id', to: 'tasks#complete_task'

@@ -12,4 +12,8 @@ class BoardPresenter
   def author_full_name
     @board.author.full_name
   end
+
+  def visibility_status
+    @board.is_public ? 'Public' : 'Private'
+  end
 end

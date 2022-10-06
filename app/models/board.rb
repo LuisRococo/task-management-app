@@ -5,6 +5,11 @@ class Board < ApplicationRecord
   validate :user_board_capacity
 
   def user_has_access?(user)
+    return true if is_public
+    user_access_to_options?(user)
+  end
+
+  def user_access_to_options?(user)
     manager = user.authorization_tier == 'user' ? user.manager : user
     manager == author
   end
@@ -15,6 +20,11 @@ class Board < ApplicationRecord
 
   def max_task_lists_reached?
     task_lists.count >= @@TASK_LIST_LIMIT
+  end
+
+  def toggle_visibility
+    self.is_public = !is_public
+    self.save
   end
 
   private
