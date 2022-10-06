@@ -1,19 +1,13 @@
-<% 
-msj = 'Get plan'
-block = false
-
-if !user_logged?
-    path = new_user_registration_path
-elsif current_user.user_has_plan?
-    path = '#'
-    block = (current_user.plan == plan)
-else
-    path = '#'
-end
-%>
-
-<%= link_to path do %>
-    <button class="btn btn-success btn-lg" <%= 'disabled' if block %>>
-        <%= msj %>
-    </button>
+<% if !user_logged? %>
+    <%= link_to 'Get plan', new_user_registration_path, class: 'btn btn-success btn-lg' %>
+<% elsif current_user.user_has_plan? %>
+    <p class="text-success">
+        <strong><%= 'You have this plan' if current_user.plan == plan %></strong>
+    </p>
+<% else %>
+    <%= link_to 'Get plan',
+                "/set_plan?plan_id=#{plan.id}",
+                class: 'btn btn-success btn-lg',
+                method: :post,
+                data: {confirm: "Do you really want to choose this plan" } %>
 <% end %>

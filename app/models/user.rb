@@ -109,6 +109,20 @@ class User < ApplicationRecord
     self.is_manager_or_manager_team?(target_user) && self.authorization_tier == 'manager'
   end
 
+  def can_plan_be_set?
+    !user_has_plan? && authorization_tier == 'manager'
+  end
+
+  def set_plan(plan_to_add)
+    self.plan = plan_to_add
+    self.trial_block = false
+    self.save!
+  end
+
+  def access_to_plan_show_page
+    authorization_tier == 'manager'
+  end
+
   private
 
   def capitalize_name
