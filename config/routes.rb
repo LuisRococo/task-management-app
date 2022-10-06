@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :boards, shallow: true
   end
   delete 'end_trial/:id', to: 'users#end_trial'
+  post 'set_plan', to: 'users#set_plan'
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   

@@ -4,6 +4,6 @@
     <h3 class="card-title my-4 h1"><%= plan.price %> $</h3>
     <p class="card-text my-2"><%= pluralize(plan.time_months, 'month') %></p>
     <p class="card-text mb-4"><%= pluralize(plan.member_quantity, 'member') %></p>
-    <a href="#" class="btn btn-success btn-lg">Get the plan</a>
+    <%= render 'plan_card_btn', plan: plan %>
   </div>
 </div>

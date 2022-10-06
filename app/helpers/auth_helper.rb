@@ -18,4 +18,9 @@ module AuthHelper
   def regular_user?
     user_logged? && current_user.authorization_tier == 'user'
   end
+
+  def access_to_plan_page
+    return true unless user_logged?
+    current_user.access_to_plan_show_page
+  end
 end

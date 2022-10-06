@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_04_195834) do
+ActiveRecord::Schema.define(version: 2022_10_06_050644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,14 +138,14 @@ ActiveRecord::Schema.define(version: 2022_10_04_195834) do
     t.integer "invitations_count", default: 0
     t.boolean "trial_block", default: false
     t.datetime "paid_date"
-    t.bigint "plans_id"
+    t.bigint "plan_id"
     t.boolean "pay_block", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["manager_id"], name: "index_users_on_manager_id"
-    t.index ["plans_id"], name: "index_users_on_plans_id"
+    t.index ["plan_id"], name: "index_users_on_plan_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
