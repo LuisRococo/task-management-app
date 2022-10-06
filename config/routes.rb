@@ -21,4 +21,6 @@ Rails.application.routes.draw do
   post 'complete_task/:id', to: 'tasks#complete_task_action'
   
   resources :task_users, only: [:create, :destroy]
+
+  get 'admin', to: 'admins#admin_menu'
 end
