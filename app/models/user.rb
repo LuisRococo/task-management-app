@@ -103,8 +103,10 @@ class User < ApplicationRecord
     days_after_payment > plan.duration_in_days
   end
 
-  def has_access_to_user_crud(target_user)
-    current_user.access_to_user_crud?(target_user)
+  def has_access_to_user_crud?(target_user)
+    return true if target_user == self
+    return true if self.authorization_tier == 'admin'
+    self.is_manager_or_manager_team?(target_user) && self.authorization_tier == 'manager'
   end
 
   private

@@ -29,8 +29,6 @@ class ApplicationController < ActionController::Base
   end
 
   def access_to_user_crud?(target_user)
-    return true if target_user == current_user
-    return true if current_user.authorization_tier == 'admin'
-    current_user.is_manager_or_manager_team?(target_user) && current_user.authorization_tier == 'manager'
+    current_user.has_access_to_user_crud?(target_user)
   end
 end
