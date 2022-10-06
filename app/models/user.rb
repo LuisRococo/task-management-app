@@ -103,6 +103,10 @@ class User < ApplicationRecord
     days_after_payment > plan.duration_in_days
   end
 
+  def has_access_to_user_crud(target_user)
+    current_user.access_to_user_crud?(target_user)
+  end
+
   private
 
   def capitalize_name
