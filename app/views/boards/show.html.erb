@@ -10,14 +10,18 @@
                 <p class="m-0"><%= presenter.author_full_name %></p>
             </div>
             <div>
-                <%= link_to 'Manage Lists', task_lists_path(board_id: @board.id), class: 'btn btn-warning me-2' %>
-                <button class="btn btn-success">New Task</button>
+                <%= link_to 'Manage Lists', board_task_lists_path(@board), class: 'btn btn-warning me-2' %>
+                <% if @board.task_lists.count == 0 %>
+                    <%= link_to 'New Task', new_board_task_list_path(@board), class: 'btn btn-success' %>
+                <% else %>
+                    <%= link_to 'New Task', new_task_list_task_path(@board.task_lists.first), class: 'btn btn-success' %>
+                <% end %>
             </div>
         </div>
     </div>
 
     <div class="overflow-auto">
-        <div class="row-fluid row-fluid-scroll">
+        <div class="row-fluid row-fluid-scroll d-flex">
             <% @task_lists.each do |list| %>
                 <%= render 'task_list', list: list %>
             <% end %>

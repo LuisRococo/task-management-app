@@ -1,4 +1,8 @@
 class PlansController < ApplicationController
+  authorize_persona class_name: "User"
+  grant(
+    admin: :all
+  )
   before_action :set_plan, only: [:edit, :update, :destroy, :show]
 
   def index

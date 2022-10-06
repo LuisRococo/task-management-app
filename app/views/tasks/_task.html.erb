@@ -1,0 +1,67 @@
+<% presenter = TaskPresenter.new(task) %>
+
+<div class="card mb-4">
+  <div class="card-header">
+    Task
+  </div>
+  <div class="card-body">
+    <h5 class="text-start"><span class="badge <%= board_task_label_style(task) %>"><%= board_task_label_title(task) %></span></h5>
+    <h5 class="card-title mb-3"><%= task.title %> Task</h5>
+    <p class="m-0 mb-1">
+        <strong>Task List: </strong>
+        <%= task.task_list.title %>
+    </p>
+    <p class="m-0 mb-1">
+        <strong>Author: </strong>
+        <%= task.creator.full_name %>
+    </p>
+
+    <% if task.completed %>
+      <p class="m-0 mb-1">
+        <strong>Started at: </strong>
+        <%= presenter.readable_started_date %>
+      </p>
+
+      <p class="m-0 mb-1">
+        <strong>Finished at: </strong>
+        <%= presenter.readable_finished_date %>
+      </p>
+
+      <p class="m-0 mb-1">
+        <strong>Doing time: </strong>
+        <%= presenter.readable_doing_time %>
+      </p>
+
+      <p class="m-0 mb-1">
+        <strong>Justification: </strong>
+        <%= task.justification %>
+      </p>
+    <% end %>
+
+    
+    <% unless task.content.blank? %>
+      <p><strong>Content: </strong></p>
+      <hr>
+      <p><%= task.content %></p>
+    <% end %>
+
+    <div class="d-flex justify-content-end">
+        <%= link_to 'Delete',
+                    task_path(task),
+                    method: :delete,
+                    class: 'btn btn-danger me-2',
+                    data: {confirm: "Do you really want to delete"} %>
+        <%= link_to 'Edit', edit_task_path(task), class: 'btn btn-warning block option-btn' %>
+        <% unless request.path == task_path(task) %>
+          <%= link_to 'See task', task_path(task), class: 'btn btn-primary ms-2' %>
+        <% end %>
+    </div>
+
+    <% if !task.completed %>
+      <hr>
+      <div class="d-flex justify-content-end">
+        <%= link_to 'Mark as completed', "/complete_task/#{task.id}", class: 'btn btn-success' %>
+      </div>
+    <% end %>
+  </div>
+</div>
