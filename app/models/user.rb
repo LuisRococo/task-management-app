@@ -96,6 +96,11 @@ class User < ApplicationRecord
     !!plan
   end
 
+  def remove_pay_block
+    self.pay_block = false
+    self.save
+  end
+
   def has_payment_expired?
     raise Exception.new "User has no plan" unless user_has_plan?
     days_after_payment = (Time.now - paid_date.to_time) / 1.day
