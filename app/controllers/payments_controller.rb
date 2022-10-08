@@ -1,7 +1,7 @@
 class PaymentsController < ApplicationController
   authorize_persona class_name: "User"
   before_action :validate_is_manager
-  before_action :validate_has_plan
+  before_action :validate_should_user_pay
   grant(
     manager: :all
   )
@@ -47,9 +47,9 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def validate_has_plan
-    unless current_user.user_has_plan?
-      flash[:alert] = 'You do not have a plan to pay'
+  def validate_should_user_pay
+    unless current_user.user_has_plan? && !current_user.trial_block
+      flash[:alert] = 'You do not have a plan to pay or you already payed'
       redirect_back(fallback_location: root_path)
     end
   end
