@@ -5,4 +5,13 @@ module PagesHelper
                 img: 'idea-black.jpg' }]
     features *= 4
   end
+
+  def payment_block_card_options
+    {
+      title: 'Your application has been block',
+      subtitle: ' Application block ',
+      msj: 'You are required to pay to keep using the application. If you are not the team manager you should contact him.',
+      url: new_payment_path
+    }
+  end
 end

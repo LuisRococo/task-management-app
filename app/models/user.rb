@@ -101,6 +101,14 @@ class User < ApplicationRecord
     self.save
   end
 
+  def has_payment_block?
+    if authorization_tier != 'user'
+      self.pay_block
+    else
+      self.manager.pay_block
+    end
+  end
+
   def has_payment_expired?
     raise Exception.new "User has no plan" unless user_has_plan?
     days_after_payment = (Time.now - paid_date.to_time) / 1.day

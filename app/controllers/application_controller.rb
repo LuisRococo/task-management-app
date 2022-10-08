@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :block_no_paid_plans_users
+  before_action :block_no_paid_plans_users, unless: :devise_controller?
 
   helper_method :board_index_path, :access_to_user_crud?
 
@@ -17,9 +17,8 @@ class ApplicationController < ActionController::Base
   private
 
   def block_no_paid_plans_users
-    return unless current_user && current_user.authorization_tier = 'manager'
-    if current_user.pay_block
-      redirect_to new_payment_path
+    if current_user && current_user.has_payment_block?
+      redirect_to '/payment-block'
       flash[:alert] = 'Your plan has expired'
     end
   end

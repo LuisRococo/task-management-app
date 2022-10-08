@@ -46,14 +46,14 @@ class PaymentsController < ApplicationController
   def validate_is_manager
     unless current_user.authorization_tier == 'manager'
       flash[:alert] = 'You can not access this section'
-      # redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path)
     end
   end
 
   def validate_should_user_pay
-    unless current_user.user_has_plan? && !current_user.trial_block
+    unless current_user.user_has_plan? && current_user.pay_block
       flash[:alert] = 'You do not have a plan to pay or you already payed'
-      # redirect_back(fallback_location: root_path)
+      redirect_back(fallback_location: root_path)
     end
   end
 end
