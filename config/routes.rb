@@ -25,6 +25,6 @@ Rails.application.routes.draw do
 
   get 'admin', to: 'admins#admin_menu'
 
-  resources :payments, only: [:create]
+  resources :payments, only: [:create, :new]
   
 end
