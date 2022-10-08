@@ -24,4 +24,7 @@ Rails.application.routes.draw do
   resources :task_users, only: [:create, :destroy]
 
   get 'admin', to: 'admins#admin_menu'
+
+  resources :payments, only: [:create]
+  
 end

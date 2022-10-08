@@ -123,6 +123,19 @@ class User < ApplicationRecord
     authorization_tier == 'manager'
   end
 
+  def get_or_create_stripe_customer_id
+    if self.stripe_user_id.nil?
+      customer_info = {
+        email: self.email,
+        description: "Customer with name '#{self.full_name}'",
+        name: self.full_name
+      }
+      customer_id = Stripe::Customer.create(customer_info)
+      self.stripe_user_id = customer_id
+    end
+    self.stripe_user_id
+  end
+
   private
 
   def capitalize_name
