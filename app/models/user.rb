@@ -131,6 +131,7 @@ class User < ApplicationRecord
   def set_plan(plan_to_add)
     self.plan = plan_to_add
     self.trial_block = false
+    self.pay_block = true
     self.save!
   end
 
