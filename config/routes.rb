@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'set_plan', to: 'users#set_plan'
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
+  get 'payment-block', to: 'pages#payment_block'
   
   resources :plans
   resources :boards, except: [:index, :new, :create] do
@@ -24,4 +25,7 @@ Rails.application.routes.draw do
   resources :task_users, only: [:create, :destroy]
 
   get 'admin', to: 'admins#admin_menu'
+
+  resources :payments, only: [:create, :new]
+  
 end

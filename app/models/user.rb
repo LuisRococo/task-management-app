@@ -96,6 +96,19 @@ class User < ApplicationRecord
     !!plan
   end
 
+  def remove_pay_block
+    self.pay_block = false
+    self.save
+  end
+
+  def has_payment_block?
+    if authorization_tier != 'user'
+      self.pay_block
+    else
+      self.manager.pay_block
+    end
+  end
+
   def has_payment_expired?
     raise Exception.new "User has no plan" unless user_has_plan?
     days_after_payment = (Time.now - paid_date.to_time) / 1.day
@@ -121,6 +134,19 @@ class User < ApplicationRecord
 
   def access_to_plan_show_page
     authorization_tier == 'manager'
+  end
+
+  def get_or_create_stripe_customer_id
+    if self.stripe_user_id.nil?
+      customer_info = {
+        email: self.email,
+        description: "Customer with name '#{self.full_name}'",
+        name: self.full_name
+      }
+      customer_id = Stripe::Customer.create(customer_info)
+      self.stripe_user_id = customer_id
+    end
+    self.stripe_user_id
   end
 
   private

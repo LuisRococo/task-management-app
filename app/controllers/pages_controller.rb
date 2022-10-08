@@ -1,6 +1,8 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:payment_block]
+  skip_before_action :block_no_paid_plans_users, only: [:payment_block]
   before_action :access_to_plan_page, only: [:plans]
+  before_action :access_to_payment_block, only: [:payment_block]
 
   def home
   end
@@ -9,12 +11,21 @@ class PagesController < ApplicationController
     @plans = Plan.all
   end
 
+  def payment_block
+  end
+
   private
 
   def access_to_plan_page
     if current_user && !current_user.access_to_plan_show_page
       flash[:alert] = 'You cannot access this page'
       redirect_to root_path
+    end
+  end
+
+  def access_to_payment_block
+    unless current_user.has_payment_block?
+      redirect_back(fallback_location: root_path)
     end
   end
 end

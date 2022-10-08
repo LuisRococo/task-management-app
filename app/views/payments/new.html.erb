@@ -1,0 +1,57 @@
+<div class="container">
+    <%= render 'pg_header', payment_new_header_page %>
+
+    <div class="text-center mb-5">
+        <h4 class="m-0 mb-2">Amount to pay</h4>
+        <h5 class="m-0 text-success"><%= plan_cost %></h5>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-8 col-lg-5">
+            <div class="mb-2">
+                <p class="m-0 text-secondary">
+                    <strong>Plan to pay</strong>
+                </p>
+                <p class="m-0"><%= plan_name %></p>
+            </div>
+            <div class="card">
+                <div class="card-body bg-light">
+                    <%= form_with url: '/payments', method: :post do |f| %>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <%= f.label :card_number%>
+                                    <%= f.text_field :card_number, 
+                                                        class: 'form-control',
+                                                        maxlength: 16,
+                                                        minlength:16 %>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <%= f.label :expiration_date%>
+                                    <div class="d-flex">
+                                        <%= f.date_select :expiration_date,
+                                                            {discard_day: true},
+                                                            class: 'form-control' %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-3">
+                                    <%= f.label :card_cvv%>
+                                    <%= f.number_field :card_cvv, class: 'form-control', min: 100, max:999 %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <%= f.submit 'submit', class: 'btn btn-primary' %>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

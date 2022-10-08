@@ -49,6 +49,7 @@ group :development do
   gem 'spring'
   gem "letter_opener"
   gem 'rubocop-rails', require: false
+  gem 'stripe'
 end
 
 group :test do
