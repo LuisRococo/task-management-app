@@ -81,8 +81,8 @@ class User < ApplicationRecord
   end
 
   def has_free_trial?
-    return false unless authorization_tier == 'manager'
-    !user_has_plan? && !trial_block
+    manager = authorization_tier == 'user' ? self.manager : self
+    !manager.user_has_plan? && !trial_block
   end
 
   def end_trial_period
@@ -102,11 +102,13 @@ class User < ApplicationRecord
   end
 
   def has_payment_block?
-    if authorization_tier != 'user'
-      self.pay_block
-    else
-      self.manager.pay_block
-    end
+    manager = authorization_tier == 'user' ? self.manager : self
+    manager.pay_block
+  end
+
+  def has_trial_block?
+    manager = authorization_tier == 'user' ? self.manager : self
+    manager.trial_block
   end
 
   def has_payment_expired?

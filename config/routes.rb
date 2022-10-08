@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   get 'payment-block', to: 'pages#payment_block'
+  get 'trial-block', to: 'pages#trial_block'
   
   resources :plans
   resources :boards, except: [:index, :new, :create] do

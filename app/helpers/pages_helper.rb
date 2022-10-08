@@ -14,4 +14,13 @@ module PagesHelper
       url: new_payment_path
     }
   end
+
+  def trial_block_card_options
+    {
+      title: 'Your application has been block',
+      subtitle: 'Your trial is over',
+      msj: 'You are required select a plan and pay to keep using the application. If you are not the team manager you should contact him.',
+      url: '/our-plans'
+    }
+  end
 end

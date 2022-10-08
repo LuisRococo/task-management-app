@@ -6,6 +6,7 @@ class UsersController < ApplicationController
     admin: :all,
   )
 
+  skip_before_action :block_trial_expirated_users, only: [:set_plan]
   before_action :set_user, except: [:set_plan]
   before_action :access_to_crud, only: [:end_trial, :edit, :update]
 
