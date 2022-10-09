@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   )
 
   skip_before_action :block_trial_expirated_users, only: [:set_plan]
-  before_action :set_user, except: [:set_plan]
+  before_action :set_user, except: [:set_plan, :toggle_random_message]
   before_action :access_to_crud, only: %i[end_trial edit update]
   before_action :current_user_admin, only: [:toggle_user_block]
 
@@ -51,6 +51,17 @@ class UsersController < ApplicationController
     @user.toggle_block_user
     message = @user.has_user_block? ? 'User has been blocked' : 'User has been unblocked'
     flash[:notice] = message
+    redirect_back(fallback_location: root_path)
+  end
+
+  def toggle_random_message
+    if cookies[:random_message_active]
+      cookies.delete :random_message_active
+      flash[:notice] = 'Random quotes are unabled'
+    else
+      cookies.permanent[:random_message_active] = 'true'
+      flash[:notice] = 'Random quotes are abled'
+    end
     redirect_back(fallback_location: root_path)
   end
 

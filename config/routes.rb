@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :boards, shallow: true
   end
   delete 'end_trial/:id', to: 'users#end_trial'
+  post 'toggle-random-message', to: 'users#toggle_random_message'
   post 'set_plan', to: 'users#set_plan'
   post 'toggle-user-block/:id', to: 'users#toggle_user_block'
   root 'pages#home'

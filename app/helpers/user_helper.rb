@@ -29,4 +29,12 @@ module UserHelper
     ]
     messages[rand(0...messages.count)]
   end
+
+  def random_phrase_btn_text
+    if cookies[:random_message_active]
+      'Deactivate board quotes'
+    else
+      'Activate board quotes'
+    end
+  end
 end
