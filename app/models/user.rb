@@ -85,6 +85,17 @@ class User < ApplicationRecord
     days_of_trial_used > @@TRIAL_TIME_LIMIT_DAYS
   end
 
+  def add_white_list
+    self.white_list = true
+    self.remove_pay_block
+    self.save
+  end
+
+  def white_listed?
+    manager = authorization_tier == 'user' ? self.manager : self
+    manager.white_list
+  end
+
   def has_free_trial?
     manager = authorization_tier == 'user' ? self.manager : self
     !manager.user_has_plan? && !trial_block
@@ -98,6 +109,12 @@ class User < ApplicationRecord
 
   def user_has_plan?
     !!plan
+  end
+
+  def add_pay_block
+    return if white_listed?
+    self.pay_block = true
+    self.save
   end
 
   def remove_pay_block
