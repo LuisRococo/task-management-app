@@ -20,6 +20,8 @@ class User < ApplicationRecord
   belongs_to :manager, class_name: 'User', optional: true
   belongs_to :plan, optional: true
 
+  scope :white_managers_white_list, -> { where(authorization_tier: 'manager').order('white_listed DESC') }
+
   authorization_tiers(
     user: 'User - limited access',
     manager: 'Manager - manages users and boards',
@@ -85,6 +87,22 @@ class User < ApplicationRecord
     days_of_trial_used > @@TRIAL_TIME_LIMIT_DAYS
   end
 
+  def add_white_list
+    self.white_listed = true
+    self.remove_pay_block
+    self.save
+  end
+
+  def remove_white_list
+    self.white_listed = false
+    self.save
+  end
+
+  def white_listed?
+    manager = authorization_tier == 'user' ? self.manager : self
+    manager.white_listed
+  end
+
   def has_free_trial?
     manager = authorization_tier == 'user' ? self.manager : self
     !manager.user_has_plan? && !trial_block
@@ -98,6 +116,12 @@ class User < ApplicationRecord
 
   def user_has_plan?
     !!plan
+  end
+
+  def add_pay_block
+    return if white_listed?
+    self.pay_block = true
+    self.save
   end
 
   def remove_pay_block

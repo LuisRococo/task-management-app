@@ -13,4 +13,8 @@ module UserHelper
   def show_end_trial_btn?(target_user)
     target_user.has_free_trial? && target_user.authorization_tier == 'manager'
   end
+
+  def white_listed?(user)
+    user.white_listed?
+  end
 end
