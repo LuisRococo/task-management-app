@@ -26,9 +26,9 @@ module PagesHelper
 
   def user_block_card_options
     {
-      title: 'Your boards has been blocked',
+      title: 'Your boards have been blocked',
       subtitle: 'User block',
-      msj: 'Your board has been blocked by an admin. Contact us if you think it is a misunderstanding.',
+      msj: 'Your boards have been blocked by an admin. Contact us if you think it is a misunderstanding.',
       url: nil
     }
   end
