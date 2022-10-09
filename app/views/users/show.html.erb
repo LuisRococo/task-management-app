@@ -22,6 +22,12 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
                             <%= link_to 'Edit information', edit_user_path(@user), class: 'btn btn-warning me-2' %>
+                            <% if show_user_block_btn?(@user) %>
+                                <%= link_to presenter.block_btn_text,
+                                                "/toggle-user-block/#{@user.id}",
+                                                class: 'btn btn-danger me-2',
+                                                method: :post %>
+                            <% end %>
                             <% if @user.has_free_trial? %>
                                 <%= link_to 'Remove trial period',
                                             "/end_trial/#{@user.id}",

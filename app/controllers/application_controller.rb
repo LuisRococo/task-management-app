@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :block_no_paid_plans_users, unless: :devise_controller?
   before_action :block_trial_expirated_users, unless: :devise_controller?
+  before_action :block_entry_to_blocked_users, unless: :devise_controller?
 
   helper_method :board_index_path, :access_to_user_crud?
 
@@ -28,6 +29,13 @@ class ApplicationController < ActionController::Base
     if current_user && current_user.has_trial_block?
       redirect_to '/trial-block'
       flash[:alert] = 'Your trial has expired'
+    end
+  end
+
+  def block_entry_to_blocked_users
+    if current_user && current_user.has_user_block?
+      redirect_to '/user-block'
+      flash[:alert] = 'You have been blocked'
     end
   end
 
