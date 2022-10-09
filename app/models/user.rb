@@ -86,8 +86,13 @@ class User < ApplicationRecord
   end
 
   def add_white_list
-    self.white_list = true
+    self.white_listed = true
     self.remove_pay_block
+    self.save
+  end
+
+  def remove_white_list
+    self.white_listed = false
     self.save
   end
 
