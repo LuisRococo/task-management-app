@@ -16,6 +16,10 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @task_list.tasks
+    respond_to do |format|
+      format.html
+      format.json { render json: @tasks }
+    end
   end
 
   def show; end
