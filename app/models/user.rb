@@ -20,6 +20,8 @@ class User < ApplicationRecord
   belongs_to :manager, class_name: 'User', optional: true
   belongs_to :plan, optional: true
 
+  scope :white_managers_white_list, -> { where(authorization_tier: 'manager').order('white_listed DESC') }
+
   authorization_tiers(
     user: 'User - limited access',
     manager: 'Manager - manages users and boards',
@@ -98,7 +100,7 @@ class User < ApplicationRecord
 
   def white_listed?
     manager = authorization_tier == 'user' ? self.manager : self
-    manager.white_list
+    manager.white_listed
   end
 
   def has_free_trial?

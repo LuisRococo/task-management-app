@@ -33,5 +33,5 @@ Rails.application.routes.draw do
 
   resources :payments, only: %i[create new]
 
-  resources :white_lists, only: [:index]
+  resources :white_lists, only: [:index, :destroy, :create]
 end

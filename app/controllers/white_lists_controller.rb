@@ -7,10 +7,10 @@ class WhiteListsController < ApplicationController
   )
   before_action :set_target_user, except: [:index]
   before_action :target_user_admin, except: [:index]
-  before_action :already_white_listed, except: [:index]
+  before_action :already_white_listed, only: [:create]
 
   def index
-    @users = User.where(white_listed: true).paginate(page: params[:page], per_page: 10)
+    @users = User.white_managers_white_list.paginate(page: params[:page], per_page: 10)
   end
 
   def create

@@ -1,6 +1,37 @@
 <div class="container">
     <%= render 'pg_header', admin_white_list_index_header %>
 
+    <div class="row d-flex">
+        <% @users.each do |user| %>
+            <div class="col-12 col-md-6">
+                <div class="bg-light py-3 px-3 rounded mb-3">
+                    <div>
+                        <p class="m-0"><%= user.full_name %></p>
+                        <p class="m-0"><%= user.email %></p>
+                        <div class="d-flex flex-wrap">
+                            <h5><span class="badge bg-secondary me-1"><%= user.authorization_tier.capitalize %></span></h5>
+                            <% if white_listed?(user) %>
+                                <h5><span class="badge bg-success">White Listed</span></h5>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <% if white_listed?(user) %>
+                            <%= link_to white_list_btn_text(user),
+                                    white_list_path(user.id),
+                                    class: 'btn btn-warning',
+                                    method: :delete %>
+                        <% else %>
+                            <%= link_to white_list_btn_text(user),
+                                    white_lists_path(id: user.id),
+                                    class: 'btn btn-warning',
+                                    method: :post %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
 
     <div class="d-flex justify-content-end mt-3">
         <div class="digg_pagination">
