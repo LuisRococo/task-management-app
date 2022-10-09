@@ -5,6 +5,8 @@
     <div class="card-body">
         <h5 class="card-title"><%= title %></h5>
         <p class="card-text"><%= msj %></p>
-        <%= link_to 'Unblock', url, class: 'btn btn-primary' %>
+        <% unless url.nil? %>
+            <%= link_to 'Unblock', url, class: 'btn btn-primary' %>
+        <% end %>
     </div>
 </div>
