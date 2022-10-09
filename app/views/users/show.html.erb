@@ -21,6 +21,12 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
+                            <% if same_user?(@user) %>
+                                <%= link_to random_phrase_btn_text,
+                                                "/toggle-random-message",
+                                                class: 'btn btn-primary me-2',
+                                                method: :post %>
+                            <% end %>
                             <%= link_to 'Edit information', edit_user_path(@user), class: 'btn btn-warning me-2' %>
                             <% if show_user_block_btn?(@user) %>
                                 <%= link_to presenter.block_btn_text,

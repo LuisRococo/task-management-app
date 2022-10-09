@@ -23,7 +23,10 @@ module AuthHelper
 
   def access_to_plan_page
     return true unless user_logged?
-
     current_user.access_to_plan_show_page
+  end
+
+  def same_user?(target_user)
+    current_user == target_user
   end
 end

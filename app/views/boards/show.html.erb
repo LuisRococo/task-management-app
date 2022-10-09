@@ -1,6 +1,8 @@
 <% presenter = BoardPresenter.new(@board) %>
 
 <div class="container mb-5">
+    <%= render 'random_message' %>
+
     <%= render 'pg_header', presenter.show_header %>
 
     <div class="bg-dark rounded p-4 mt-4 mb-3 text-white">
