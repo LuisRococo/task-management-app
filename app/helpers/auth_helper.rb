@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AuthHelper
   def user_logged?
     !!current_user
@@ -21,6 +23,7 @@ module AuthHelper
 
   def access_to_plan_page
     return true unless user_logged?
+
     current_user.access_to_plan_show_page
   end
 end

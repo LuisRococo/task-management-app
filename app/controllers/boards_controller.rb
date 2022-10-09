@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
 class BoardsController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
-    user: [:show, :index, :toggle_visibility],
+    user: %i[show index toggle_visibility],
     manager: :all,
-    admin: :all,
+    admin: :all
   )
-  before_action :set_author_from_url, only: [:index, :create, :new]
-  before_action :set_board_from_url, only: [:show, :edit, :update, :destroy, :toggle_visibility]
-  before_action :set_author_from_board, except: [:index, :new, :create]
-  
-  before_action :same_user_as_author, except: [:index, :show, :toggle_visibility]
-  before_action :part_of_team, only: [:index, :toggle_visibility]
+  before_action :set_author_from_url, only: %i[index create new]
+  before_action :set_board_from_url, only: %i[show edit update destroy toggle_visibility]
+  before_action :set_author_from_board, except: %i[index new create]
+
+  before_action :same_user_as_author, except: %i[index show toggle_visibility]
+  before_action :part_of_team, only: %i[index toggle_visibility]
   before_action :access_to_board, only: [:show]
 
   def index
@@ -48,8 +50,7 @@ class BoardsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @board.update(board_params)
@@ -64,10 +65,11 @@ class BoardsController < ApplicationController
   def toggle_visibility
     @board.toggle_visibility
     flash[:notice] = 'The visibility of the board has changed'
-    redirect_back(fallback_location: root_path) 
+    redirect_back(fallback_location: root_path)
   end
 
   private
+
   def set_board_from_url
     @board = Board.find(params[:id])
   end

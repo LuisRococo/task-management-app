@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BoardPresenter
   def initialize(board)
     @board = board

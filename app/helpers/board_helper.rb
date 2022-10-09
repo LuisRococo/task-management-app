@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BoardHelper
   def board_index_header
     { title: 'Team Boards',

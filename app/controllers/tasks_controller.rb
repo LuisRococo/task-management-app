@@ -1,23 +1,24 @@
+# frozen_string_literal: true
+
 class TasksController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
     user: :all,
     manager: :all,
-    admin: :all,
+    admin: :all
   )
-  before_action :set_task_list, only: [:new, :create, :index]
-  before_action :set_task, except: [:new, :create, :index]
+  before_action :set_task_list, only: %i[new create index]
+  before_action :set_task, except: %i[new create index]
   before_action :valid_task_incompleted, only: [:complete_task]
-  before_action :validate_task_list, only: [:new, :create, :index]
-  before_action :validate_task, except: [:new, :create, :index]
-  before_action :validate_task_auth, only: [:edit, :update, :complete, :complete_task_action]
+  before_action :validate_task_list, only: %i[new create index]
+  before_action :validate_task, except: %i[new create index]
+  before_action :validate_task_auth, only: %i[edit update complete complete_task_action]
 
   def index
     @tasks = @task_list.tasks
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @task = Task.new
@@ -38,16 +39,14 @@ class TasksController < ApplicationController
   def edit; end
 
   def update
-    begin
-      Task.transaction do
-        @task.update(task_params)
-      end
-      flash[:notice] = 'Task updated successfully'
-      redirect_to board_path(@task.board)
-    rescue
-      flash[:alert] = 'There was an error'
-      render 'edit'
+    Task.transaction do
+      @task.update(task_params)
     end
+    flash[:notice] = 'Task updated successfully'
+    redirect_to board_path(@task.board)
+  rescue StandardError
+    flash[:alert] = 'There was an error'
+    render 'edit'
   end
 
   def destroy
@@ -60,27 +59,21 @@ class TasksController < ApplicationController
     redirect_to task_list_path(@task.task_list)
   end
 
-  def complete_task
-  end
+  def complete_task; end
 
   def complete_task_action
-    begin
-
-      Task.transaction do
-        @task.update(complete_task_params)
-        doing_time = (@task.finished_at - @task.started_at).to_i
-        @task.update(doing_time: doing_time)
-        @task.update(completed: true)
-      end
-  
-      flash[:notice] = 'Task mark as completed'
-      redirect_to board_path(@task.board)
-    
-    rescue ActiveRecord::ActiveRecordError
-      flash.now[:alert] = 'There was an error'
-      render complete_task
+    Task.transaction do
+      @task.update(complete_task_params)
+      doing_time = (@task.finished_at - @task.started_at).to_i
+      @task.update(doing_time: doing_time)
+      @task.update(completed: true)
     end
-      
+
+    flash[:notice] = 'Task mark as completed'
+    redirect_to board_path(@task.board)
+  rescue ActiveRecord::ActiveRecordError
+    flash.now[:alert] = 'There was an error'
+    render complete_task
   end
 
   private
@@ -88,12 +81,12 @@ class TasksController < ApplicationController
   def validate_task_auth
     unless @task.has_auth_to_update?(current_user)
       flash[:alert] = 'You do not have access to perform this action'
-      redirect_back(fallback_location: root_path) 
+      redirect_back(fallback_location: root_path)
     end
   end
 
   def set_task_list
-    @task_list = TaskList.find_by_id(params[:task_list_id])
+    @task_list = TaskList.find_by(id: params[:task_list_id])
   end
 
   def task_params

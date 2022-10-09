@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Board < ApplicationRecord
   @@TASK_LIST_LIMIT = 50
   belongs_to :author, class_name: 'User'
@@ -6,6 +8,7 @@ class Board < ApplicationRecord
 
   def user_has_access?(user)
     return true if is_public
+
     user_access_to_options?(user)
   end
 
@@ -24,14 +27,12 @@ class Board < ApplicationRecord
 
   def toggle_visibility
     self.is_public = !is_public
-    self.save
+    save
   end
 
   private
 
   def user_board_capacity
-    if author.max_boards_limit_reached?
-      errors.add(:author_id, "User cannot have more than #{User.BOARDS_LIMIT} boards")
-    end
+    errors.add(:author_id, "User cannot have more than #{User.BOARDS_LIMIT} boards") if author.max_boards_limit_reached?
   end
 end

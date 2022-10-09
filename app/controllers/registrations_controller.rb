@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
@@ -21,4 +23,4 @@ class RegistrationsController < Devise::RegistrationsController
       respond_with resource
     end
   end
-end 
+end

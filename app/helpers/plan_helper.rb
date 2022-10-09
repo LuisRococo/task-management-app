@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PlanHelper
   def index_header
     { title: 'Prices and Plans',

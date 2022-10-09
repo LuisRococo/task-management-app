@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class AdminsController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
     admin: :all
   )

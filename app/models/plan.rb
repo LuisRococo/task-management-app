@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Plan < ApplicationRecord
   default_scope { order(:plan_id) }
   monetize :price_cents

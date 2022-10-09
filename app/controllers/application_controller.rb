@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include AuthorizedPersona::Authorization
-  
+
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :block_no_paid_plans_users, unless: :devise_controller?
@@ -12,28 +14,30 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:first_name, :last_name, :email, :password)}
-    devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :password, :current_password)}
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:first_name, :last_name, :email, :password) }
+    devise_parameter_sanitizer.permit(:account_update) do |u|
+      u.permit(:first_name, :last_name, :password, :current_password)
+    end
   end
 
   private
 
   def block_no_paid_plans_users
-    if current_user && current_user.has_payment_block?
+    if current_user&.has_payment_block?
       redirect_to '/payment-block'
       flash[:alert] = 'Your plan has expired'
     end
   end
 
   def block_trial_expirated_users
-    if current_user && current_user.has_trial_block?
+    if current_user&.has_trial_block?
       redirect_to '/trial-block'
       flash[:alert] = 'Your trial has expired'
     end
   end
 
   def block_entry_to_blocked_users
-    if current_user && current_user.has_user_block?
+    if current_user&.has_user_block?
       redirect_to '/user-block'
       flash[:alert] = 'You have been blocked'
     end

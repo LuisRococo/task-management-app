@@ -1,21 +1,21 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
     user: :all,
     manager: :all,
-    admin: :all,
+    admin: :all
   )
 
   skip_before_action :block_trial_expirated_users, only: [:set_plan]
   before_action :set_user, except: [:set_plan]
-  before_action :access_to_crud, only: [:end_trial, :edit, :update]
+  before_action :access_to_crud, only: %i[end_trial edit update]
   before_action :current_user_admin, only: [:toggle_user_block]
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @user.update(user_params)
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
 
     plan_to_add = Plan.find(params[:plan_id])
     current_user.set_plan(plan_to_add)
-    
+
     flash[:notice] = "You now have the '#{plan_to_add.title}' plan"
     redirect_to new_payment_path
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PaymentHelper
   def payment_new_header_page
     { title: 'Plan payment',

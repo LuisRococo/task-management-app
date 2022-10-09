@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserHelper
   def user_has_free_trial?(user)
     user.has_free_trial?

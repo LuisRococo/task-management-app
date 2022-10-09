@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NoPaymentBlocker < ApplicationJob
   queue_as :default
 
@@ -7,13 +9,11 @@ class NoPaymentBlocker < ApplicationJob
 
   def block_users
     User.where(authorization_tier: 'manager', pay_block: false).where.not(plan_id: nil).each do |manager|
-      if manager.has_payment_expired?
-        manager.trial_block = true
-      end
+      manager.trial_block = true if manager.has_payment_expired?
     end
   end
 
-  def perform(*args)
+  def perform(*_args)
     block_users
     NoPaymentBlocker.init
   end
