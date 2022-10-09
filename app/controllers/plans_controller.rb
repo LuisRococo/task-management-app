@@ -41,6 +41,12 @@ class PlansController < ApplicationController
   end
 
   def destroy
+    if Plan.where(plan_id: @plan.id).joins(:users).count != 0
+      flash[:alert] = 'You can not delete a plan while it has users in it.'
+      redirect_to plans_path
+      return
+    end
+
     if @plan.destroy
       flash[:notice] = 'The plan was successfully deleted'
     else
