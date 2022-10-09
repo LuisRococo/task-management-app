@@ -32,4 +32,6 @@ Rails.application.routes.draw do
   get 'admin', to: 'admins#admin_menu'
 
   resources :payments, only: %i[create new]
+
+  resources :white_lists, only: [:index]
 end
