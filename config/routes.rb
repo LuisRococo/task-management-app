@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
   delete 'end_trial/:id', to: 'users#end_trial'
   post 'set_plan', to: 'users#set_plan'
+  post 'toggle-user-block/:id', to: 'users#toggle_user_block'
   root 'pages#home'
   get 'our-plans', to: 'pages#plans'
   get 'payment-block', to: 'pages#payment_block'

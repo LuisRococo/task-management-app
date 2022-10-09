@@ -17,4 +17,7 @@ class UserPresenter
     @user.authorization_tier == 'user'
   end
 
+  def block_btn_text
+    @user.has_user_block? ? 'Unblock user' : 'Block user'
+  end
 end
