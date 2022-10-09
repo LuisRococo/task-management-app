@@ -55,10 +55,8 @@ if Rails.env.development?
       user.skip_confirmation!
       manager.team_members << user
     end
-  end
 
-  # create boards
-  User.all.where.not(authorization_tier: 'user').each do |manager|
+    # create boards
     Board.create(title: 'My greate project I', author_id: manager.id)
     Board.create(title: 'My greate project II', author_id: manager.id)
     Board.create(title: 'My greate project III', author_id: manager.id)
@@ -98,12 +96,8 @@ if Rails.env.development?
                                     started_at: Time.zone.now - 1.day,
                                     finished_at: Time.zone.now)
       end
-    end
-  end
 
-  # add users to tasks
-  User.all.where.not(authorization_tier: 'user').each do |manager|
-    manager.boards.each do |board|
+      # add users to tasks
       task_list = board.task_lists.first
       task_list.tasks.first(2).each do |task|
         manager.team_members.each do |team_member|
