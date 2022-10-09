@@ -19,11 +19,12 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      redirect_to user_path(@user)
       flash[:notice] = 'The user was updated'
     else
-      flash[:alert] = 'There was an error'
+      flash.now[:alert] = 'There was an error'
+      render :edit
     end
-    redirect_back(fallback_location: root_path)
   end
 
   def end_trial
