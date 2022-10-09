@@ -1,7 +1,7 @@
 class BoardsController < ApplicationController
   authorize_persona class_name: "User"
   grant(
-    user: [:show, :index],
+    user: [:show, :index, :toggle_visibility],
     manager: :all,
     admin: :all,
   )
@@ -9,7 +9,7 @@ class BoardsController < ApplicationController
   before_action :set_board_from_url, only: [:show, :edit, :update, :destroy, :toggle_visibility]
   before_action :set_author_from_board, except: [:index, :new, :create]
   
-  before_action :same_user_as_author, except: [:index, :show]
+  before_action :same_user_as_author, except: [:index, :show, :toggle_visibility]
   before_action :part_of_team, only: [:index, :toggle_visibility]
   before_action :access_to_board, only: [:show]
 
