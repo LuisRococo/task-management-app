@@ -86,7 +86,7 @@ class User < ApplicationRecord
   end
 
   def end_trial_period
-    if has_free_trial?
+    if authorization_tier == 'manager' && has_free_trial?
       self.trial_block = true
       self.save!
     end

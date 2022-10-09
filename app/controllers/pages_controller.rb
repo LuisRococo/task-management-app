@@ -1,5 +1,4 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:payment_block, :trial_block]
   skip_before_action :block_no_paid_plans_users, only: [:payment_block]
   skip_before_action :block_trial_expirated_users, only: [:trial_block, :plans]
   skip_before_action :block_entry_to_blocked_users, only: [:user_block]
@@ -28,8 +27,8 @@ class PagesController < ApplicationController
 
   def access_to_plan_page
     if current_user && !current_user.access_to_plan_show_page
-      flash[:alert] = 'You cannot access this page'
-      redirect_to root_path
+      flash[:alert] = 'Only managers can access this page'
+      redirect_back(fallback_location: root_path)
     end
   end
 

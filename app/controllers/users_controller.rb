@@ -43,7 +43,7 @@ class UsersController < ApplicationController
     current_user.set_plan(plan_to_add)
     
     flash[:notice] = "You now have the '#{plan_to_add.title}' plan"
-    redirect_back(fallback_location: root_path)
+    redirect_to new_payment_path
   end
 
   def toggle_user_block

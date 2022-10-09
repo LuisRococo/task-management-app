@@ -28,7 +28,7 @@
                                                 class: 'btn btn-danger me-2',
                                                 method: :post %>
                             <% end %>
-                            <% if @user.has_free_trial? %>
+                            <% if show_end_trial_btn?(@user) %>
                                 <%= link_to 'Remove trial period',
                                             "/end_trial/#{@user.id}",
                                             class: 'btn btn-danger',
