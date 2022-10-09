@@ -9,6 +9,9 @@ AllCops:
     - db/schema.rb
     - app/controllers/invitations_controller.rb
     - app/controllers/users/*
+    - config/routes.rb
+    - config/initializers/devise.rb
+    - config/environments/development.rb
 
 Style/Documentation:
   Enabled: false

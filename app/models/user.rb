@@ -91,10 +91,9 @@ class User < ApplicationRecord
   end
 
   def end_trial_period
-    if authorization_tier == 'manager' && has_free_trial?
-      self.trial_block = true
-      save!
-    end
+    return unless authorization_tier == 'manager' && has_free_trial?
+    self.trial_block = true
+    save!
   end
 
   def user_has_plan?
@@ -122,10 +121,9 @@ class User < ApplicationRecord
   end
 
   def toggle_block_user
-    if authorization_tier == 'manager'
-      self.user_block = !user_block
-      save
-    end
+    return unless authorization_tier == 'manager'
+    self.user_block = !user_block
+    save
   end
 
   def has_payment_expired?
@@ -147,7 +145,7 @@ class User < ApplicationRecord
     !user_has_plan? && authorization_tier == 'manager'
   end
 
-  def set_plan(plan_to_add)
+  def change_plan(plan_to_add)
     self.plan = plan_to_add
     self.trial_block = false
     self.pay_block = true
@@ -158,7 +156,7 @@ class User < ApplicationRecord
     authorization_tier == 'manager'
   end
 
-  def get_or_create_stripe_customer_id
+  def stripe_customer_id_or_create
     if stripe_user_id.nil?
       customer_info = {
         email: email,

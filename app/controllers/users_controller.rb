@@ -40,7 +40,7 @@ class UsersController < ApplicationController
     end
 
     plan_to_add = Plan.find(params[:plan_id])
-    current_user.set_plan(plan_to_add)
+    current_user.change_plan(plan_to_add)
 
     flash[:notice] = "You now have the '#{plan_to_add.title}' plan"
     redirect_to new_payment_path

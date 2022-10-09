@@ -12,7 +12,7 @@ class PaymentsController < ApplicationController
   def new; end
 
   def create
-    customer_id = current_user.get_or_create_stripe_customer_id
+    customer_id = current_user.stripe_customer_id_or_create
     card_token = tokenizate_card
 
     Stripe::Charge.create({
