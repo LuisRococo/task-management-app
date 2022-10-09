@@ -26,4 +26,9 @@ class Task < ApplicationRecord
     return nil unless doing_time
     doing_time / 1.hour
   end
+
+  def has_auth_to_update?(user)
+    return true if self.creator == user
+    board.author == user
+  end
 end

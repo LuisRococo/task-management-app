@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   before_action :valid_task_incompleted, only: [:complete_task]
   before_action :validate_task_list, only: [:new, :create, :index]
   before_action :validate_task, except: [:new, :create, :index]
+  before_action :validate_task_auth, only: [:edit, :update, :complete, :complete_task_action]
 
   def index
     @tasks = @task_list.tasks
@@ -83,6 +84,13 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def validate_task_auth
+    unless @task.has_auth_to_update?(current_user)
+      flash[:alert] = 'You do not have access to perform this action'
+      redirect_back(fallback_location: root_path) 
+    end
+  end
 
   def set_task_list
     @task_list = TaskList.find_by_id(params[:task_list_id])
