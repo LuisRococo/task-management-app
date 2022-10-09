@@ -10,6 +10,10 @@ class TeamsController < ApplicationController
 
   def index
     @team = current_user.team_members
+    respond_to do |format|
+      format.html
+      format.json { render json: @team }
+    end
   end
 
   def new; end
