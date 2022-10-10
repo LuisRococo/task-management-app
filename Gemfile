@@ -14,6 +14,7 @@ gem 'devise_invitable', '~> 2.0.0'
 gem 'money-rails', '~>1.12'
 gem 'pg'
 gem 'will_paginate', '~> 3.3'
+gem 'sidekiq'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
