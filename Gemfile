@@ -15,6 +15,7 @@ gem 'money-rails', '~>1.12'
 gem 'pg'
 gem 'will_paginate', '~> 3.3'
 gem 'sidekiq'
+gem 'stripe'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Use SCSS for stylesheets
@@ -52,7 +53,6 @@ group :development do
   gem 'letter_opener'
   gem 'rubocop-rails', require: false
   gem 'spring'
-  gem 'stripe'
 end
 
 group :test do
