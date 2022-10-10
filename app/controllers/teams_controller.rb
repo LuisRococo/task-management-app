@@ -2,6 +2,7 @@
 
 class TeamsController < ApplicationController
   authorize_persona class_name: 'User'
+  before_action :block_access_to_admin
   before_action :validate_already_existing_user, only: [:create]
   before_action :same_user, only: %i[create new index]
   grant(

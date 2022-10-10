@@ -22,6 +22,13 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def block_access_to_admin
+    if current_user && current_user.authorization_tier == 'admin'
+      flash[:alert] = 'Admins do not have access to these resources'
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
   def block_no_paid_plans_users
     if current_user&.has_payment_block?
       redirect_to '/payment-block'

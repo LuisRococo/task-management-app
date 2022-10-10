@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PaymentsController < ApplicationController
+  before_action :block_access_to_admin
   authorize_persona class_name: 'User'
   before_action :validate_is_manager
   before_action :validate_should_user_pay

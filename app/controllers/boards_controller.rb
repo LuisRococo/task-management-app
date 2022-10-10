@@ -7,6 +7,7 @@ class BoardsController < ApplicationController
     manager: :all,
     admin: :all
   )
+  before_action :block_access_to_admin
   before_action :set_author_from_url, only: %i[index create new]
   before_action :set_board_from_url, only: %i[show edit update destroy toggle_visibility]
   before_action :set_author_from_board, except: %i[index new create]

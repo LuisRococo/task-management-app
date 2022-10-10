@@ -4,9 +4,9 @@ class TasksController < ApplicationController
   authorize_persona class_name: 'User'
   grant(
     user: :all,
-    manager: :all,
-    admin: :all
+    manager: :all
   )
+  before_action :block_access_to_admin
   before_action :set_task_list, only: %i[new create index]
   before_action :set_task, except: %i[new create index]
   before_action :valid_task_incompleted, only: [:complete_task]

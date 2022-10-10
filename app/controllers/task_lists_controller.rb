@@ -4,10 +4,10 @@ class TaskListsController < ApplicationController
   authorize_persona class_name: 'User'
   grant(
     user: :all,
-    manager: :all,
-    admin: :all
+    manager: :all
   )
 
+  before_action :block_access_to_admin
   before_action :set_board_from_url_param, only: %i[new index create]
   before_action :set_task_list, except: %i[index new create]
 
