@@ -26,6 +26,10 @@ class BoardsController < ApplicationController
 
   def destroy
     if @board.destroy
+      if @board.author.board_delete_notification
+        SecurityEmailBoardDeleteJob.perform_later(current_user,
+                                                  @board.title)
+      end
       flash[:notice] = 'Board was deleted'
     else
       flash[:alert] = 'Something went wrong'
@@ -48,6 +52,10 @@ class BoardsController < ApplicationController
 
     if @board.save
       flash[:notice] = 'A new board was created'
+      if @board.author.board_create_notification
+        SecurityEmailBoardCreatedJob.perform_later(current_user,
+                                                    @board.title)
+      end
       redirect_to board_path(@board)
     else
       flash.now[:alert] = 'There was an error creating the board'
@@ -60,6 +68,10 @@ class BoardsController < ApplicationController
   def update
     if @board.update(board_params)
       flash[:notice] = 'The board was successfully updated'
+      if @board.author.board_update_notification
+        SecurityEmailBoardUpdateJob.perform_later(current_user,
+                                                @board.title)
+      end
       redirect_to board_path(@board)
     else
       flash.now[:alert] = 'There was an error'

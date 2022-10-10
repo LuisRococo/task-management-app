@@ -47,6 +47,34 @@
         </div>
     <% end %>
 
+    <% if show_notification_options(@user) && same_user?(@user) %>
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-8">
+            <div class="card mb-4">
+                    <div class="card-header">
+                        Notifications
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <%= link_to notification_board_update_btn_text(@user),
+                                                "/toggle-board-update-emails/#{@user.id}",
+                                                class: 'btn btn-primary me-2',
+                                                method: :post %>
+                            <%= link_to notification_board_delete_btn_text(@user),
+                                                "/toggle-board-delete-emails/#{@user.id}",
+                                                class: 'btn btn-primary me-2',
+                                                method: :post %>
+                            <%= link_to notification_board_create_btn_text(@user),
+                                                "/toggle-board-create-emails/#{@user.id}",
+                                                class: 'btn btn-primary me-2',
+                                                method: :post %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
+
     <div class="row d-flex justify-content-center">
         <div class="col-12 col-lg-8">
            <%= render 'info', user: @user %>

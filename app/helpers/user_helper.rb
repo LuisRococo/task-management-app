@@ -43,4 +43,23 @@ module UserHelper
       text: 'Be part of one to the greatest task management tools',
       config: false }
   end
+
+  def show_notification_options(target_user)
+    target_user.authorization_tier == 'manager'
+  end
+
+  def notification_board_create_btn_text(target_user)
+    return 'Disable board creation emails' if target_user.board_create_notification
+    'Enable board creation emails'
+  end
+
+  def notification_board_update_btn_text(target_user)
+    return 'Disable board update emails' if target_user.board_update_notification
+    'Enable board update emails'
+  end
+
+  def notification_board_delete_btn_text(target_user)
+    return 'Disable board deletion emails' if target_user.board_delete_notification
+    'Enable board deletion emails'
+  end
 end
