@@ -20,7 +20,7 @@ class BoardsController < ApplicationController
     @boards = @author.boards
     respond_to do |format|
       format.html
-      format.json { render json: @boards }
+      format.json
     end
   end
 

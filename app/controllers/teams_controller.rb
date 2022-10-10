@@ -13,7 +13,7 @@ class TeamsController < ApplicationController
     @team = current_user.team_members
     respond_to do |format|
       format.html
-      format.json { render json: @team }
+      format.json
     end
   end
 
