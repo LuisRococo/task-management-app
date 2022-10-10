@@ -37,4 +37,10 @@ module UserHelper
       'Activate board quotes'
     end
   end
+
+  def invitation_new_page_header
+    { title: 'Set your password',
+      text: 'Be part of one to the greatest task management tools',
+      config: false }
+  end
 end
