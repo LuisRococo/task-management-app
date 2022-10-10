@@ -29,16 +29,18 @@ class UsersController < ApplicationController
 
   def toggle_board_delete_emails
     @user.board_delete_notification = !@user.board_delete_notification
+    @user.save
     if @user.board_delete_notification
-      flash[:notice] = 'Board update notification are on'
+      flash[:notice] = 'Board deletion notification are on'
     else
-      flash[:notice] = 'Board update notification are off'
+      flash[:notice] = 'Board deletion notification are off'
     end
     redirect_back(fallback_location: root_path)
   end
 
   def toggle_board_update_emails
     @user.board_update_notification = !@user.board_update_notification
+    @user.save
     if @user.board_update_notification
       flash[:notice] = 'Board update notification are on'
     else
@@ -49,10 +51,11 @@ class UsersController < ApplicationController
 
   def toggle_board_create_emails
     @user.board_create_notification = !@user.board_create_notification
+    @user.save
     if @user.board_create_notification
-      flash[:notice] = 'Board update notification are on'
+      flash[:notice] = 'Board creation notification are on'
     else
-      flash[:notice] = 'Board update notification are off'
+      flash[:notice] = 'Board creation notification are off'
     end
     redirect_back(fallback_location: root_path)
   end

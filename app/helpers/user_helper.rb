@@ -43,4 +43,8 @@ module UserHelper
       text: 'Be part of one to the greatest task management tools',
       config: false }
   end
+
+  def show_notification_options(target_user)
+    target_user.authorization_tier == 'manager'
+  end
 end
