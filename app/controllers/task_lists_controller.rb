@@ -20,7 +20,7 @@ class TaskListsController < ApplicationController
     @task_lists = @board.task_lists
     respond_to do |format|
       format.html
-      format.json { render json: @task_lists }
+      format.json
     end
   end
 
