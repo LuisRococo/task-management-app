@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   skip_before_action :block_trial_expirated_users, only: [:set_plan]
   before_action :set_user, except: [:set_plan, :toggle_random_message]
-  before_action :access_to_crud, only: %i[end_trial edit update]
+  before_action :access_to_crud, only: %i[end_trial edit update toggle_board_delete_emails toggle_board_update_emails toggle_board_create_emails]
   before_action :current_user_admin, only: [:toggle_user_block]
 
   def show; end
@@ -25,6 +25,36 @@ class UsersController < ApplicationController
       flash.now[:alert] = 'There was an error'
       render :edit
     end
+  end
+
+  def toggle_board_delete_emails
+    @user.board_delete_notification = !@user.board_delete_notification
+    if @user.board_delete_notification
+      flash[:notice] = 'Board update notification are on'
+    else
+      flash[:notice] = 'Board update notification are off'
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
+  def toggle_board_update_emails
+    @user.board_update_notification = !@user.board_update_notification
+    if @user.board_update_notification
+      flash[:notice] = 'Board update notification are on'
+    else
+      flash[:notice] = 'Board update notification are off'
+    end
+    redirect_back(fallback_location: root_path)
+  end
+
+  def toggle_board_create_emails
+    @user.board_create_notification = !@user.board_create_notification
+    if @user.board_create_notification
+      flash[:notice] = 'Board update notification are on'
+    else
+      flash[:notice] = 'Board update notification are off'
+    end
+    redirect_back(fallback_location: root_path)
   end
 
   def end_trial
