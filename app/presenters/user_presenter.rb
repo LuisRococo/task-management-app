@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UserPresenter
   def initialize(user)
     @user = user
@@ -5,7 +7,7 @@ class UserPresenter
 
   def show_page_header
     { title: @user.full_name,
-      text: "User profile",
+      text: 'User profile',
       config: false }
   end
 
@@ -17,4 +19,7 @@ class UserPresenter
     @user.authorization_tier == 'user'
   end
 
+  def block_btn_text
+    @user.has_user_block? ? 'Unblock user' : 'Block user'
+  end
 end

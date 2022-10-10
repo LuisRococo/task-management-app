@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TeamHelper
   def team_new_header_page
     { title: 'New team member',

@@ -6,24 +6,52 @@
         </div>
     </div>
 
+    <div class="bg-dark rounded p-4 my-4 text-white">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="h5 m-0">Admin options</p>
+            </div>
+            <div>
+                <%= link_to 'White listed users', white_lists_path, class: 'btn btn-success' %>
+            </div>
+        </div>
+    </div>
+
     <h3>Application Users</h3>
+    <p>Change user information, end trials and block users. You will only have the option to block and remove trials on managers.</p>
     <hr class="mb-5">
 
     <div class="row d-flex">
         <% @users.each do |user| %>
             <div class="col-12 col-md-6">
                 <div class="bg-light py-3 px-3 rounded mb-3">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="m-0"><%= user.full_name %></p>
-                            <p class="m-0"><%= user.email %></p>
-                            <h5><span class="badge bg-secondary"><%= user.authorization_tier.capitalize %></span></h5>
+                    <div>
+                        <p class="m-0"><%= user.full_name %></p>
+                        <p class="m-0"><%= user.email %></p>
+                        <div class="d-flex flex-wrap">
+                            <h5><span class="badge bg-secondary me-1"><%= user.authorization_tier.capitalize %></span></h5>
+                            <% if white_listed?(user) %>
+                                <h5><span class="badge bg-success">White Listed</span></h5>
+                            <% end %>
                         </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
                         <%= link_to 'See end edit user', user_path(user), class: 'btn btn-primary' %>
                     </div>
                 </div>
             </div>
         <% end %>
+    </div>
+
+    <div class="d-flex justify-content-end mt-3">
+        <div class="digg_pagination">
+            <div class="page_info">
+            <%= page_entries_info @users %>
+            </div>
+            <div class="d-flex justify-content-end">
+                <%= will_paginate @users, :container => false %>
+            </div>
+        </div>
     </div>
 
 </div>

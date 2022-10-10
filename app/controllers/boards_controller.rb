@@ -1,23 +1,35 @@
+# frozen_string_literal: true
+
 class BoardsController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
-    user: [:show, :index],
+    user: %i[show index toggle_visibility],
     manager: :all,
-    admin: :all,
+    admin: :all
   )
-  before_action :set_author_from_url, only: [:index, :create, :new]
-  before_action :set_board_from_url, only: [:show, :edit, :update, :destroy]
-  before_action :set_author_from_board, except: [:index, :new, :create]
-  
-  before_action :same_user_as_author, except: [:index, :show]
-  before_action :part_of_team, only: [:index, :show]
+  before_action :block_access_to_admin
+  before_action :set_author_from_url, only: %i[index create new]
+  before_action :set_board_from_url, only: %i[show edit update destroy toggle_visibility]
+  before_action :set_author_from_board, except: %i[index new create]
+
+  before_action :same_user_as_author, except: %i[index show toggle_visibility]
+  before_action :part_of_team, only: %i[index toggle_visibility]
+  before_action :access_to_board, only: [:show]
 
   def index
     @boards = @author.boards
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def destroy
     if @board.destroy
+      if @board.author.board_delete_notification
+        SecurityEmailBoardDeleteJob.perform_later(current_user,
+                                                  @board.title)
+      end
       flash[:notice] = 'Board was deleted'
     else
       flash[:alert] = 'Something went wrong'
@@ -40,6 +52,10 @@ class BoardsController < ApplicationController
 
     if @board.save
       flash[:notice] = 'A new board was created'
+      if @board.author.board_create_notification
+        SecurityEmailBoardCreatedJob.perform_later(current_user,
+                                                    @board.title)
+      end
       redirect_to board_path(@board)
     else
       flash.now[:alert] = 'There was an error creating the board'
@@ -47,12 +63,15 @@ class BoardsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @board.update(board_params)
       flash[:notice] = 'The board was successfully updated'
+      if @board.author.board_update_notification
+        SecurityEmailBoardUpdateJob.perform_later(current_user,
+                                                @board.title)
+      end
       redirect_to board_path(@board)
     else
       flash.now[:alert] = 'There was an error'
@@ -60,7 +79,14 @@ class BoardsController < ApplicationController
     end
   end
 
+  def toggle_visibility
+    @board.toggle_visibility
+    flash[:notice] = 'The visibility of the board has changed'
+    redirect_back(fallback_location: root_path)
+  end
+
   private
+
   def set_board_from_url
     @board = Board.find(params[:id])
   end

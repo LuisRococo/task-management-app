@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -5,7 +7,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
 
 # plans creation
 Plan.create(title: 'Basic',
@@ -19,7 +20,7 @@ Plan.create(title: 'Small Business',
 Plan.create(title: 'Premium',
             time_months: 12,
             member_quantity: 100,
-            price: Money.from_cents(10000))
+            price: Money.from_cents(10_000))
 
 # admin user
 admin_user = User.new(first_name: 'Admin',
@@ -30,7 +31,7 @@ admin_user = User.new(first_name: 'Admin',
 admin_user.skip_confirmation!
 admin_user.save!
 
-if Rails.env == 'development'
+if Rails.env.development?
   # create managers
   (1..4).to_a.each do |index|
     manager_user = User.new(first_name: "Manager#{index}",
@@ -54,10 +55,8 @@ if Rails.env == 'development'
       user.skip_confirmation!
       manager.team_members << user
     end
-  end
 
-  # create boards
-  User.all.where.not(authorization_tier: 'user').each do |manager|
+    # create boards
     Board.create(title: 'My greate project I', author_id: manager.id)
     Board.create(title: 'My greate project II', author_id: manager.id)
     Board.create(title: 'My greate project III', author_id: manager.id)
@@ -65,10 +64,10 @@ if Rails.env == 'development'
 
   # create task lists
   Board.all.each do |board|
-   board.task_lists << TaskList.new(name: 'Pending', color: '#FAEA07', priority: 1)
-   board.task_lists << TaskList.new(name: 'In Progress', color: '#FF9933', priority: 2)
-   board.task_lists << TaskList.new(name: 'Testing', color: '#000000', priority: 3)
-   board.task_lists << TaskList.new(name: 'Finished', color: '#58D22B', priority: 4)
+    board.task_lists << TaskList.new(name: 'Pending', color: '#FAEA07', priority: 1)
+    board.task_lists << TaskList.new(name: 'In Progress', color: '#FF9933', priority: 2)
+    board.task_lists << TaskList.new(name: 'Testing', color: '#000000', priority: 3)
+    board.task_lists << TaskList.new(name: 'Finished', color: '#58D22B', priority: 4)
   end
 
   # create tasks
@@ -87,22 +86,18 @@ if Rails.env == 'development'
                                     completed: true,
                                     justification: 'Lorem ipsum lom remson',
                                     doing_time: 24.hours.to_i,
-                                    started_at: Time.now - 1.day,
-                                    finished_at: Time.now)
+                                    started_at: Time.zone.now - 1.day,
+                                    finished_at: Time.zone.now)
         task_list.tasks << Task.new(title: 'Completed II',
                                     creator: manager,
                                     completed: true,
                                     justification: 'Lorem ipsum lom remson',
                                     doing_time: 24.hours.to_i,
-                                    started_at: Time.now - 1.day,
-                                    finished_at: Time.now)
+                                    started_at: Time.zone.now - 1.day,
+                                    finished_at: Time.zone.now)
       end
-    end
-  end
 
-   # add users to tasks
-   User.all.where.not(authorization_tier: 'user').each do |manager|
-    manager.boards.each do |board|
+      # add users to tasks
       task_list = board.task_lists.first
       task_list.tasks.first(2).each do |task|
         manager.team_members.each do |team_member|

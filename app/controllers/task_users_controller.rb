@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class TaskUsersController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
     user: :all,
-    manager: :all,
-    admin: :all,
+    manager: :all
   )
+  before_action :block_access_to_admin
   before_action :set_user_to_add, only: [:create]
   before_action :valid_user, only: [:create]
   before_action :set_task_user, only: [:destroy]
@@ -25,7 +27,7 @@ class TaskUsersController < ApplicationController
     else
       flash[:alert] = 'There was an error'
     end
-    redirect_back(fallback_location: root_path) 
+    redirect_back(fallback_location: root_path)
   end
 
   private

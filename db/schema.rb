@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_06_050644) do
+ActiveRecord::Schema.define(version: 2022_10_10_064218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2022_10_06_050644) do
     t.bigint "author_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "is_public", default: false
     t.index ["author_id"], name: "index_boards_on_author_id"
   end
 
@@ -140,6 +141,12 @@ ActiveRecord::Schema.define(version: 2022_10_06_050644) do
     t.datetime "paid_date"
     t.bigint "plan_id"
     t.boolean "pay_block", default: false
+    t.string "stripe_user_id"
+    t.boolean "user_block", default: false
+    t.boolean "white_listed", default: false
+    t.boolean "board_update_notification", default: false
+    t.boolean "board_delete_notification", default: true
+    t.boolean "board_create_notification", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"

@@ -1,24 +1,50 @@
 <% presenter = BoardPresenter.new(@board) %>
 
 <div class="container mb-5">
+    <%= render 'random_message' %>
+
     <%= render 'pg_header', presenter.show_header %>
 
-    <div class="bg-dark rounded p-4 mt-4 mb-5 text-white">
+    <div class="bg-dark rounded p-4 mt-4 mb-3 text-white">
         <div class="d-flex justify-content-between align-items-center">
             <div>
                 <p class="h5 m-0">Boards Owner</p>
                 <p class="m-0"><%= presenter.author_full_name %></p>
             </div>
             <div>
-                <%= link_to 'Manage Lists', board_task_lists_path(@board), class: 'btn btn-warning me-2' %>
-                <% if @board.task_lists.count == 0 %>
-                    <%= link_to 'New Task', new_board_task_list_path(@board), class: 'btn btn-success' %>
-                <% else %>
-                    <%= link_to 'New Task', new_task_list_task_path(@board.task_lists.first), class: 'btn btn-success' %>
+                <% if show_board_options? %>
+                    <%= link_to 'Manage Lists', board_task_lists_path(@board), class: 'btn btn-warning me-2' %>
+                    <% if @board.task_lists.count == 0 %>
+                        <%= link_to 'New Task', new_board_task_list_path(@board), class: 'btn btn-success' %>
+                    <% else %>
+                        <%= link_to 'New Task', new_task_list_task_path(@board.task_lists.first), class: 'btn btn-success' %>
+                    <% end %>
                 <% end %>
             </div>
         </div>
     </div>
+
+    <% if show_board_options? %>
+        <div class="d-flex justify-content-end">
+            <div class="card mb-5 bg-light">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <small>
+                                <strong>Visibility</strong>
+                                <p class="m-0"><%= presenter.visibility_status %> </p>
+                            </small>
+                        </div>
+                        <div>
+                            <%= link_to "/toggle_board_visibility/#{@board.id}", method: :post do %>
+                                <button class="btn btn-secondary"><i class="bi bi-eye-fill"></i></button>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% end %>
 
     <div class="overflow-auto">
         <div class="row-fluid row-fluid-scroll d-flex">

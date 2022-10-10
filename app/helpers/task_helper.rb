@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module TaskHelper
   def task_new_header
     { title: 'Tasks',
@@ -27,18 +29,18 @@ module TaskHelper
 
   def task_complete_page_header
     { title: 'Complete task',
-      text: "Set task as completed",
+      text: 'Set task as completed',
       config: true }
   end
 
   def task_show_page_header
     { title: 'Task',
-      text: "See details of task",
+      text: 'See details of task',
       config: true }
   end
 
   def task_user_id_from_user_task(user, task)
-    TaskUser.find_by_user_and_task(user, task).id
+    TaskUser.find_by(user: user, task: task).id
   end
 
   def board_task_label_title(task)

@@ -1,25 +1,30 @@
+# frozen_string_literal: true
+
 class TaskListsController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
     user: :all,
-    manager: :all,
-    admin: :all,
+    manager: :all
   )
 
-  before_action :set_board_from_url_param, only: [:new, :index, :create]
-  before_action :set_task_list, except: [:index, :new, :create]
-  
-  before_action :validate_board_url_param_id, only: [:new, :index, :create]
+  before_action :block_access_to_admin
+  before_action :set_board_from_url_param, only: %i[new index create]
+  before_action :set_task_list, except: %i[index new create]
+
+  before_action :validate_board_url_param_id, only: %i[new index create]
   before_action :validate_board_param, only: [:create]
 
-  before_action :validate_task_list, only: [:edit, :update, :destroy, :show]
+  before_action :validate_task_list, only: %i[edit update destroy show]
 
   def index
     @task_lists = @board.task_lists
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @task_list = TaskList.new
@@ -31,7 +36,7 @@ class TaskListsController < ApplicationController
     if @task_list.save
       flash[:notice] = 'Task list created'
       redirect_to board_path(@task_list.board)
-    else 
+    else
       flash.now[:alert] = 'There was an error'
       render 'new'
     end
@@ -46,8 +51,7 @@ class TaskListsController < ApplicationController
     redirect_to board_task_lists_path(@task_list.board)
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @task_list.update(task_list_params)
@@ -59,7 +63,7 @@ class TaskListsController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def validate_board_url_param_id
     unless valid_board?(params[:board_id])
@@ -76,7 +80,7 @@ class TaskListsController < ApplicationController
   end
 
   def valid_board?(id)
-    board = Board.find_by_id(id)
+    board = Board.find_by(id: id)
     return false unless board
 
     current_user.is_manager_or_manager_team?(board.author)
@@ -97,7 +101,7 @@ class TaskListsController < ApplicationController
   def validate_task_list
     unless current_user.is_manager_or_manager_team?(@task_list.board.author)
       flash[:alert] = 'You cannot access that task list'
-      redirect_to board_index_path(current_user)
+      redirect_back(fallback_location: root_path)
     end
   end
 end

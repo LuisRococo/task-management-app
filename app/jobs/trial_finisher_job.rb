@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TrialFinisherJob < ApplicationJob
   queue_as :default
 
@@ -7,13 +9,11 @@ class TrialFinisherJob < ApplicationJob
 
   def end_expired_trials
     User.where(trial_block: false, authorization_tier: 'manager', plan_id: nil).each do |manager|
-      if manager.calculate_has_trial_expired?
-        manager.trial_block = true
-      end
+      manager.trial_block = true if manager.calculate_has_trial_expired?
     end
   end
 
-  def perform(*args)
+  def perform(*_args)
     end_expired_trials
     TrialFinisherJob.init
   end

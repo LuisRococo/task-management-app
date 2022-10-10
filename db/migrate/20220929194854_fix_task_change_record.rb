@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixTaskChangeRecord < ActiveRecord::Migration[6.1]
   def up
     rename_column :task_change_records, :tasks_id, :task_id

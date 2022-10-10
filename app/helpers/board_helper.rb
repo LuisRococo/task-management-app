@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BoardHelper
   def board_index_header
     { title: 'Team Boards',
@@ -23,5 +25,9 @@ module BoardHelper
 
   def board_form_models
     @board&.id.nil? ? [@author, @board] : [@board]
+  end
+
+  def show_board_options?
+    @board.user_access_to_options?(current_user)
   end
 end

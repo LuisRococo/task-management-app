@@ -1,19 +1,23 @@
+# frozen_string_literal: true
+
 class PlansController < ApplicationController
-  authorize_persona class_name: "User"
+  authorize_persona class_name: 'User'
   grant(
     admin: :all
   )
-  before_action :set_plan, only: [:edit, :update, :destroy, :show]
+  before_action :set_plan, only: %i[edit update destroy show]
 
   def index
     @plans = Plan.all
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def new
     @plan = Plan.new
@@ -41,13 +45,18 @@ class PlansController < ApplicationController
   end
 
   def destroy
+    if Plan.where(plan_id: @plan.id).joins(:users).count != 0
+      flash[:alert] = 'You can not delete a plan while it has users in it.'
+      redirect_to plans_path
+      return
+    end
+
     if @plan.destroy
       flash[:notice] = 'The plan was successfully deleted'
-      redirect_to plans_path
     else
       flash[:alert] = 'There was an error'
-      redirect_to plans_path
     end
+    redirect_to plans_path
   end
 
   private

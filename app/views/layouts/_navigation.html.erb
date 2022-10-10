@@ -19,7 +19,7 @@
             <%= link_to 'Pricing', our_plans_path, class: "nav-link #{nav_active_location_class(our_plans_path)}" %>
           </li>
         <% end %>
-        <% if user_logged? %>
+        <% if user_logged? && !user_admin? %>
           <li class="nav-item">
             <%= link_to 'Boards', board_index_path(current_user), class: "nav-link #{nav_active_location_class(board_index_path(current_user))}" %>
           </li>
