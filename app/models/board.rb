@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Board < ApplicationRecord
-  @@TASK_LIST_LIMIT = 50
-  belongs_to :author, class_name: 'User'
+  @@TASK_LIST_LIMIT = 50 # could have tried .freeze
+  belongs_to :author, class_name: 'User' # custom foreign key, good job
   has_many :task_lists, dependent: :destroy
   validate :user_board_capacity
 

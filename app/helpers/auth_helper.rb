@@ -9,6 +9,7 @@ module AuthHelper
     user_logged? && user_manager?
   end
 
+  # following methods should rather been in the user model
   def user_admin?
     user_logged? && current_user.authorization_tier == 'admin'
   end

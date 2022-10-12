@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# great example of a presenter case use scenario
 class BoardPresenter
   def initialize(board)
     @board = board

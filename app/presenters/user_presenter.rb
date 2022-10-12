@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# another great example of a presenter.
 class UserPresenter
   def initialize(user)
     @user = user

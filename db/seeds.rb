@@ -9,6 +9,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # plans creation
+# seeds should have been created with faker
 Plan.create(title: 'Basic',
             time_months: 3,
             member_quantity: 20,
@@ -33,28 +34,27 @@ admin_user.save!
 
 if Rails.env.development?
   # create managers
-  (1..4).to_a.each do |index|
-    manager_user = User.new(first_name: "Manager#{index}",
-                            last_name: "Manager#{index}",
-                            email: "manager#{index}@manager.com",
+#   ().to_a1.each do |index|
+    manager_user = User.new(first_name: "Manager",
+                            last_name: "Manager",
+                            email: "manager@manager.com",
                             password: 'manager',
                             authorization_tier: 'manager')
     manager_user.skip_confirmation!
     manager_user.save!
-  end
+  # end
 
   # create regular users
   User.all.where.not(authorization_tier: 'user').each do |manager|
-    (1..4).to_a.each do |index|
-      uniq_index = "#{manager.id}#{index}"
-      user = User.new(first_name: "User#{uniq_index}",
-                      last_name: "User#{uniq_index}",
-                      email: "user#{uniq_index}@user.com",
+    # (1..4).to_a.each do |index|
+      user = User.new(first_name: "Use",
+                      last_name: "User",
+                      email: "user@user.com",
                       password: 'userrr',
                       authorization_tier: 'user')
       user.skip_confirmation!
       manager.team_members << user
-    end
+    # end
 
     # create boards
     Board.create(title: 'My greate project I', author_id: manager.id)

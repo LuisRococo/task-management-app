@@ -105,21 +105,21 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def valid_task_incompleted
+  def valid_task_incompleted # good managing all case scenarios
     if @task.completed
       flash[:alert] = 'That task is already completed'
       redirect_to task_path(@task)
     end
   end
 
-  def validate_task_list
+  def validate_task_list # authorization_persona
     unless current_user.is_manager_or_manager_team?(@task_list.board.author)
       flash[:alert] = 'You cannot access this task list'
       redirect_back(fallback_location: root_path)
     end
   end
 
-  def validate_task
+  def validate_task # this should have been managed by authorization persona
     unless current_user.is_manager_or_manager_team?(@task.task_list.board.author)
       flash[:alert] = 'You cannot access this task'
       redirect_back(fallback_location: root_path)

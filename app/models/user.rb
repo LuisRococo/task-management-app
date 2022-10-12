@@ -200,3 +200,9 @@ class User < ApplicationRecord
     last_name.capitalize!
   end
 end
+
+=begin
+just as a comment. it looks like you made the
+inverse of fat model. skinny controller.
+be careful with that.
+=end

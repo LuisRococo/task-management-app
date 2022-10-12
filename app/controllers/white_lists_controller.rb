@@ -13,6 +13,8 @@ class WhiteListsController < ApplicationController
     @users = User.white_managers_white_list.paginate(page: params[:page], per_page: 10)
   end
 
+  # also, please remember messages should be 
+  # managed through internationalization
   def create
     @target_user.add_white_list
     flash[:notice] = 'User is now white listed'
@@ -33,7 +35,7 @@ class WhiteListsController < ApplicationController
 
   def target_user_admin
     unless @target_user.authorization_tier == 'manager'
-      flash[:alert] = 'User is not a manager'
+      flash[:alert] = 'User is not a manager' # this should have been done through authorization persona
       redirect_back(fallback_location: root_path)
     end
   end

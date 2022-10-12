@@ -7,10 +7,11 @@ class TaskListsController < ApplicationController
     manager: :all
   )
 
-  before_action :block_access_to_admin
+  before_action :block_access_to_admin # this should have been done through authorization_persona
   before_action :set_board_from_url_param, only: %i[new index create]
   before_action :set_task_list, except: %i[index new create]
 
+  # a lot of validations here
   before_action :validate_board_url_param_id, only: %i[new index create]
   before_action :validate_board_param, only: [:create]
 
@@ -65,6 +66,8 @@ class TaskListsController < ApplicationController
 
   private
 
+  # again, the following two methods are just
+  # the same but named differently
   def validate_board_url_param_id
     unless valid_board?(params[:board_id])
       flash[:alert] = 'The board you are trying to access is not valid'
@@ -72,7 +75,10 @@ class TaskListsController < ApplicationController
     end
   end
 
-  def validate_board_param
+  def validate_board_param # this could have done through halting with an exception rescue 
+    # rescue_from at the beginning, while doing a board.find() and if it throws an error
+    # you would have been able to catch it with the rescue_from 
+    # and the method could redirect_back with the alert
     unless valid_board?(params[:board_id])
       flash[:alert] = 'The board you are trying to access is not valid'
       redirect_to board_index_path(current_user)
@@ -81,7 +87,7 @@ class TaskListsController < ApplicationController
 
   def valid_board?(id)
     board = Board.find_by(id: id)
-    return false unless board
+    return false unless board # something like this
 
     current_user.is_manager_or_manager_team?(board.author)
   end

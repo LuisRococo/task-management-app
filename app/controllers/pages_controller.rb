@@ -30,6 +30,14 @@ class PagesController < ApplicationController
     end
   end
 
+  # the following three methods could have been 
+  # made through metaprogramming. 
+  # i.e. 
+  # def access_to_block(has_block)
+  #   redirect_back(fallback_location: root_path) unless current_user.send(has_block)
+  # end
+  # 
+  # end
   def access_to_payment_block
     redirect_back(fallback_location: root_path) unless current_user.has_payment_block?
   end

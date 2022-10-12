@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # why is this in the application.rb 
+  # shouldn't this go within a more devise
+  # specific controller?
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:first_name, :last_name, :email, :password) }
     devise_parameter_sanitizer.permit(:account_update) do |u|
@@ -50,6 +53,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # this should go at the model, not at the controller
   def current_user_manager
     if current_user.authorization_tier == 'user'
       current_user.manager
@@ -58,11 +62,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # could do something a little bit more ruby
   def board_index_path(user)
     board_author = user.authorization_tier == 'user' ? user.manager : user
     user_boards_path(board_author)
+    # user_boards_path(board_author) if board_author.is_user?
+    # or
+    # board_author.is_user? ? user_boards_path(board_author) : another_return
   end
 
+  # method that does too little
   def access_to_user_crud?(target_user)
     current_user.has_access_to_user_crud?(target_user)
   end

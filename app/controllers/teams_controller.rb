@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 class TeamsController < ApplicationController
-  authorize_persona class_name: 'User'
+  authorize_persona class_name: 'User' # this line is repeated in a lot of controllers
+  # why not making an additional controller that
+  # inherits from application controller
+  # or better, a module
   before_action :block_access_to_admin
-  before_action :validate_already_existing_user, only: [:create]
+  before_action :validate_already_existing_user, only: [:create] # this code is repeated.
   before_action :same_user, only: %i[create new index]
   grant(
     manager: :all
@@ -35,7 +38,7 @@ class TeamsController < ApplicationController
 
   private
 
-  def validate_already_existing_user
+  def validate_already_existing_user # this validation should have been done by the model
     user_found = User.find_by(email: params[:email])
     if user_found
       flash[:alert] = 'That emails is already associated to a team'
